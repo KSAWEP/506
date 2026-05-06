@@ -1,43 +1,54 @@
-// انتقال بين الصفحات بأنيميشن
+// شاشة التحميل - تختفي بسرعة
+window.addEventListener('load', function(){
+    setTimeout(() => {
+        const loader = document.getElementById('loader');
+        if(loader) loader.classList.add('hidden');
+    }, 400);
+});
+setTimeout(() => {
+    const loader = document.getElementById('loader');
+    if(loader) loader.classList.add('hidden');
+}, 2500);
+
 document.addEventListener('DOMContentLoaded', function(){
-    // إنشاء الستار
     const curtain = document.createElement('div');
     curtain.id = 'curtain';
     document.body.appendChild(curtain);
 
-    // أنيميشن دخول
     document.body.classList.add('page-enter');
 
-    // كل الروابط الداخلية
     document.querySelectorAll('a[href$=".html"]').forEach(link => {
         link.addEventListener('click', function(e){
             const href = this.getAttribute('href');
             if (href && !this.target) {
                 e.preventDefault();
                 curtain.classList.add('up');
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 500);
+                setTimeout(() => window.location.href = href, 500);
             }
         });
     });
 
-    // قائمة الموبايل
     window.openMob = () => document.getElementById('mob').classList.add('open');
     window.closeMob = () => document.getElementById('mob').classList.remove('open');
-});
 
-// عداد الأرقام
-function animCount(el, target, duration){
-    let s = 0;
-    const inc = target / (duration / 16);
-    (function update(){
-        s += inc;
-        if (s >= target) {
-            el.textContent = target.toLocaleString();
-            return;
-        }
-        el.textContent = Math.ceil(s).toLocaleString();
-        requestAnimationFrame(update);
-    })();
-}
+    const hdr = document.querySelector('.hdr');
+    if(hdr){
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 30) hdr.classList.add('sc');
+            else hdr.classList.remove('sc');
+        });
+    }
+
+    // ====== تابز خدمات ما بعد البيع ======
+    document.querySelectorAll('.as-tab').forEach(tab => {
+        tab.addEventListener('click', function(){
+            const target = this.getAttribute('data-tab');
+            // إزالة active من كل التابز والبانلز
+            document.querySelectorAll('.as-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.as-panel').forEach(p => p.classList.remove('active'));
+            // تفعيل المختار
+            this.classList.add('active');
+            document.getElementById('as-' + target).classList.add('active');
+        });
+    });
+});

@@ -9,48 +9,47 @@
 <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
+<body class="inner-page">
 
-<!-- HEADER -->
+<div id="loader">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">العواد للتكييف</div>
+</div>
+
 <header class="hdr">
 <div class="hc">
-<div class="logo"><a href="index.html"><img src="https://alawad-air.com/wp-content/uploads/2024/04/Asset-14.svg" alt="العواد للتكييف"></a></div>
-<nav class="mnav"><a href="index.html" class="">الرئيسية</a><a href="about.html" class="act">من نحن</a><a href="services.html" class="">خدماتنا</a><a href="projects.html" class="">المشاريع</a><a href="partners.html" class="">شركاؤنا</a><a href="testimonials.html" class="">آراء العملاء</a><a href="contact.html" class="">تواصل معنا</a></nav>
+<div class="logo"><a href="index.html"><img src="assets/logo.svg" alt="العواد للتكييف"></a></div>
+<nav class="mnav"><a href="index.html" class="">الرئيسية</a><a href="about.html" class="act">من نحن</a><a href="services.html" class="">خدماتنا</a><a href="projects.html" class="">المشاريع</a><a href="testimonials.html" class="">آراء العملاء</a><a href="contact.html" class="">تواصل معنا</a></nav>
 <div class="hx">
-<a href="contact.html" class="btn btn-out">تواصل معنا</a>
-<a href="contact.html" class="btn btn-fill">طلب الصيانة</a>
+<a href="contact.html" class="btn btn-sky">طلب الصيانة</a>
 <button class="burg" onclick="openMob()"><span></span><span></span><span></span></button>
 </div>
 </div>
 </header>
 
-<!-- MOBILE MENU -->
 <div class="mob" id="mob">
 <div class="mob-hd">
-<img src="https://alawad-air.com/wp-content/uploads/2024/04/Asset-14.svg" alt="">
+<img src="assets/logo.svg" alt="">
 <button class="mob-x" onclick="closeMob()">✕</button>
 </div>
 <div class="mob-body">
-<ul><li><a href="index.html" class=""><i class="fa fa-home"></i>الرئيسية</a></li><li><a href="about.html" class="act"><i class="fa fa-info-circle"></i>من نحن</a></li><li><a href="services.html" class=""><i class="fa fa-cogs"></i>خدماتنا</a></li><li><a href="projects.html" class=""><i class="fa fa-briefcase"></i>المشاريع</a></li><li><a href="partners.html" class=""><i class="fa fa-handshake"></i>شركاؤنا</a></li><li><a href="testimonials.html" class=""><i class="fa fa-star"></i>آراء العملاء</a></li><li><a href="contact.html" class=""><i class="fa fa-envelope"></i>تواصل معنا</a></li></ul>
+<ul><li><a href="index.html" class=""><i class="fa fa-home"></i>الرئيسية</a></li><li><a href="about.html" class="act"><i class="fa fa-info-circle"></i>من نحن</a></li><li><a href="services.html" class=""><i class="fa fa-cogs"></i>خدماتنا</a></li><li><a href="projects.html" class=""><i class="fa fa-briefcase"></i>المشاريع</a></li><li><a href="testimonials.html" class=""><i class="fa fa-star"></i>آراء العملاء</a></li><li><a href="contact.html" class=""><i class="fa fa-envelope"></i>تواصل معنا</a></li></ul>
 </div>
 <div class="mob-ft">
-<a href="tel:0555808224" class="btn btn-out"><i class="fa fa-phone"></i> اتصل الآن</a>
+<a href="tel:0555808224" class="btn btn-ghost"><i class="fa fa-phone"></i> اتصل الآن</a>
 <a href="https://wa.me/966555808224" target="_blank" class="btn btn-fill"><i class="fab fa-whatsapp"></i> واتساب</a>
 </div>
 </div>
 
-<!-- WhatsApp -->
 <a href="https://wa.me/966555808224" target="_blank" class="wapf"><i class="fab fa-whatsapp"></i></a>
 
 <main>
 
 <section class="page-hero">
-<div class="page-hero-bg" style="background-image:url('https://alawad-air.com/wp-content/uploads/2025/05/Banner_6.jpg')"></div>
-<div class="page-hero-ov"></div>
 <div class="page-hero-c">
-<div class="sub-tag">ABOUT US</div>
-<h1>من نحن</h1>
-<p>تعرف على شركة العواد للتكييف وقصة نجاحها على مدار 28 عاماً في خدمة قطاع التكييف بالمملكة</p>
+<div class="sub-tag" style="background:rgba(91,192,235,0.15);color:var(--sky);border:1px solid rgba(91,192,235,0.25)">من نحن</div>
+<h1>عن <span style="color:var(--sky)">العواد للتكييف</span></h1>
+<p>قصة نجاح تمتد لربع قرن في خدمة قطاع التكييف بالمملكة العربية السعودية</p>
 </div>
 </section>
 
@@ -59,8 +58,8 @@
 <div class="bgrid">
 <img src="https://alawad-air.com/wp-content/uploads/2025/05/Banner_2.jpg" alt="">
 <div>
-<h3>قصة نجاح تمتد لربع قرن</h3>
-<p>شركة العواد للتكييف، بخبرة تمتد لأكثر من <strong>28 عامًا</strong>، تعد واحدة من الشركات الرائدة في حلول التكييف المتكاملة في المملكة العربية السعودية.</p>
+<h3>شركة العواد للتكييف</h3>
+<p>بخبرة تمتد لأكثر من <strong>28 عامًا</strong>، تعد واحدة من الشركات الرائدة في مجال حلول التكييف المتكاملة في المملكة العربية السعودية.</p>
 <p>نعمل باحترافية عالية على دراسة وتصميم وتنفيذ مشاريع التكييف بأنواعها المختلفة، باستخدام أحدث التقنيات وبمعايير جودة عالمية.</p>
 <div class="afeat">
 <div class="it"><i class="fa fa-check"></i><span>فريق هندسي معتمد</span></div>
@@ -73,24 +72,24 @@
 </div>
 </section>
 
-<section style="background:linear-gradient(180deg,var(--navy-2),var(--navy))">
+<section class="sec-light">
 <div class="sec">
 <div class="sec-head">
-<div class="sub-tag">OUR VALUES</div>
+<div class="sub-tag">قيمنا</div>
 <h2 class="sec-title">رؤيتنا <span>ورسالتنا</span></h2>
 </div>
 <div class="bgrid">
 <div>
-<h3 style="color:var(--sky)"><i class="fa fa-eye"></i> رؤيتنا</h3>
+<h3 style="color:var(--navy)"><i class="fa fa-eye" style="color:var(--sky);margin-left:10px"></i>رؤيتنا</h3>
 <p>أن نكون الخيار الأول في المملكة العربية السعودية لحلول التكييف المتكاملة، عبر تقديم خدمات احترافية بأعلى معايير الجودة والكفاءة.</p>
-<h3 style="color:var(--sky);margin-top:25px"><i class="fa fa-bullseye"></i> رسالتنا</h3>
+<h3 style="color:var(--navy);margin-top:30px"><i class="fa fa-bullseye" style="color:var(--sky);margin-left:10px"></i>رسالتنا</h3>
 <p>توفير حلول تكييف وتبريد فعالة ومستدامة لعملائنا، مع الالتزام بالجودة والمواعيد، وتقديم خدمة ما بعد البيع بأعلى المعايير.</p>
 </div>
-<div class="nums" style="flex-direction:column;align-items:flex-start;gap:12px">
-<div class="num-c" style="width:100%"><div class="n">3,200+</div><div class="l">مشروع منجز</div></div>
-<div class="num-c" style="width:100%"><div class="n">28+</div><div class="l">سنة خبرة</div></div>
-<div class="num-c" style="width:100%"><div class="n">99%</div><div class="l">رضا العملاء</div></div>
-<div class="num-c" style="width:100%"><div class="n">750+</div><div class="l">عميل سعيد</div></div>
+<div class="nums" style="flex-direction:column;align-items:stretch;gap:14px">
+<div class="num-c" style="text-align:center"><div class="n">3,200+</div><div class="l">مشروع منجز</div></div>
+<div class="num-c" style="text-align:center"><div class="n">28+</div><div class="l">سنة خبرة</div></div>
+<div class="num-c" style="text-align:center"><div class="n">99%</div><div class="l">رضا العملاء</div></div>
+<div class="num-c" style="text-align:center"><div class="n">750+</div><div class="l">عميل سعيد</div></div>
 </div>
 </div>
 </div>
@@ -98,12 +97,11 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer class="ft">
 <div class="fc">
 <div class="fg">
 <div>
-<div class="fl"><img src="https://alawad-air.com/wp-content/uploads/2024/04/Asset-14.svg" alt=""></div>
+<div class="fl"><img src="assets/logo.svg" alt=""></div>
 <p class="fa-txt">واحدة من الشركات الرائدة في حلول التكييف المتكاملة في المملكة العربية السعودية</p>
 <ul class="fct">
 <li><a href="tel:0555808224"><i class="fa fa-phone"></i> +966 555 808 224</a></li>
@@ -118,7 +116,6 @@
 <a href="about.html">من نحن</a>
 <a href="services.html">خدماتنا</a>
 <a href="projects.html">المشاريع</a>
-<a href="partners.html">شركاؤنا</a>
 <a href="testimonials.html">آراء العملاء</a>
 <a href="services.html">نظم التبريد</a>
 <a href="services.html">برامج الصيانة</a>

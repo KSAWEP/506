@@ -9,47 +9,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
+<body class="inner-page">
 
-<!-- HEADER -->
+<div id="loader">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">العواد للتكييف</div>
+</div>
+
 <header class="hdr">
 <div class="hc">
-<div class="logo"><a href="index.html"><img src="https://alawad-air.com/wp-content/uploads/2024/04/Asset-14.svg" alt="العواد للتكييف"></a></div>
-<nav class="mnav"><a href="index.html" class="">الرئيسية</a><a href="about.html" class="">من نحن</a><a href="services.html" class="">خدماتنا</a><a href="projects.html" class="">المشاريع</a><a href="partners.html" class="">شركاؤنا</a><a href="testimonials.html" class="act">آراء العملاء</a><a href="contact.html" class="">تواصل معنا</a></nav>
+<div class="logo"><a href="index.html"><img src="assets/logo.svg" alt="العواد للتكييف"></a></div>
+<nav class="mnav"><a href="index.html" class="">الرئيسية</a><a href="about.html" class="">من نحن</a><a href="services.html" class="">خدماتنا</a><a href="projects.html" class="">المشاريع</a><a href="testimonials.html" class="act">آراء العملاء</a><a href="contact.html" class="">تواصل معنا</a></nav>
 <div class="hx">
-<a href="contact.html" class="btn btn-out">تواصل معنا</a>
-<a href="contact.html" class="btn btn-fill">طلب الصيانة</a>
+<a href="contact.html" class="btn btn-sky">طلب الصيانة</a>
 <button class="burg" onclick="openMob()"><span></span><span></span><span></span></button>
 </div>
 </div>
 </header>
 
-<!-- MOBILE MENU -->
 <div class="mob" id="mob">
 <div class="mob-hd">
-<img src="https://alawad-air.com/wp-content/uploads/2024/04/Asset-14.svg" alt="">
+<img src="assets/logo.svg" alt="">
 <button class="mob-x" onclick="closeMob()">✕</button>
 </div>
 <div class="mob-body">
-<ul><li><a href="index.html" class=""><i class="fa fa-home"></i>الرئيسية</a></li><li><a href="about.html" class=""><i class="fa fa-info-circle"></i>من نحن</a></li><li><a href="services.html" class=""><i class="fa fa-cogs"></i>خدماتنا</a></li><li><a href="projects.html" class=""><i class="fa fa-briefcase"></i>المشاريع</a></li><li><a href="partners.html" class=""><i class="fa fa-handshake"></i>شركاؤنا</a></li><li><a href="testimonials.html" class="act"><i class="fa fa-star"></i>آراء العملاء</a></li><li><a href="contact.html" class=""><i class="fa fa-envelope"></i>تواصل معنا</a></li></ul>
+<ul><li><a href="index.html" class=""><i class="fa fa-home"></i>الرئيسية</a></li><li><a href="about.html" class=""><i class="fa fa-info-circle"></i>من نحن</a></li><li><a href="services.html" class=""><i class="fa fa-cogs"></i>خدماتنا</a></li><li><a href="projects.html" class=""><i class="fa fa-briefcase"></i>المشاريع</a></li><li><a href="testimonials.html" class="act"><i class="fa fa-star"></i>آراء العملاء</a></li><li><a href="contact.html" class=""><i class="fa fa-envelope"></i>تواصل معنا</a></li></ul>
 </div>
 <div class="mob-ft">
-<a href="tel:0555808224" class="btn btn-out"><i class="fa fa-phone"></i> اتصل الآن</a>
+<a href="tel:0555808224" class="btn btn-ghost"><i class="fa fa-phone"></i> اتصل الآن</a>
 <a href="https://wa.me/966555808224" target="_blank" class="btn btn-fill"><i class="fab fa-whatsapp"></i> واتساب</a>
 </div>
 </div>
 
-<!-- WhatsApp -->
 <a href="https://wa.me/966555808224" target="_blank" class="wapf"><i class="fab fa-whatsapp"></i></a>
 
 <main>
 
 <section class="page-hero">
-<div class="page-hero-bg" style="background-image:url('https://alawad-air.com/wp-content/uploads/2025/05/Banner_6.jpg')"></div>
-<div class="page-hero-ov"></div>
 <div class="page-hero-c">
-<div class="sub-tag">CLIENT REVIEWS</div>
-<h1>آراء عملائنا</h1>
+<div class="sub-tag" style="background:rgba(91,192,235,0.15);color:var(--sky);border:1px solid rgba(91,192,235,0.25)">آراء العملاء</div>
+<h1>آراء <span style="color:var(--sky)">عملائنا</span></h1>
 <p>شهادات حقيقية من عملائنا الكرام تعكس التزامنا بأعلى معايير الجودة</p>
 </div>
 </section>
@@ -62,19 +61,16 @@
 <p>الاخوان في قسم الصيانة وعلى رأسهم المهندس زكريا والفنيين أخلاق ما قصروا معنا.. كل التعامل الراقي والأدب والمرونة والنصح للعميل وسرعة الإنجاز.</p>
 <div class="trau"><div class="trav">أ</div><div><div class="trnm">أبو عبد الملك</div><div class="trrl">عميل</div><div class="trst"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div></div></div>
 </div>
-
 <div class="trc">
 <div class="qi"><i class="fa fa-quote-right"></i></div>
 <p>شركة العواد للتكييف اشكركم ركبت عندهم تكييف مخفي جوده في التركيب والصيانة مابعد البيع سرعة الوصول الى الموقع. الجودة هي شعارهم الف شكر لهم.</p>
 <div class="trau"><div class="trav">س</div><div><div class="trnm">سعود عبد العزيز</div><div class="trrl">عميل</div><div class="trst"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div></div></div>
 </div>
-
 <div class="trc">
 <div class="qi"><i class="fa fa-quote-right"></i></div>
 <p>خدمة ممتازة واحترافية، وأجهزة ذات فئة عالية في توفير الطاقة وتعامل رائع من الموظفة فادية. أوصي بالشركة بشدة.</p>
 <div class="trau"><div class="trav">ل</div><div><div class="trnm">Lama Alsaad</div><div class="trrl">عميلة</div><div class="trst"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div></div></div>
 </div>
-
 <div class="trc">
 <div class="qi"><i class="fa fa-quote-right"></i></div>
 <p>شركه محترفه في مجال التكييف انصح فيها وبشده. تم تعاملي مع محمد أبو عمر تعامل راقي وأخلاق عاليه وسرعه في تنفيذ أعمال التكييف.</p>
@@ -86,12 +82,11 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer class="ft">
 <div class="fc">
 <div class="fg">
 <div>
-<div class="fl"><img src="https://alawad-air.com/wp-content/uploads/2024/04/Asset-14.svg" alt=""></div>
+<div class="fl"><img src="assets/logo.svg" alt=""></div>
 <p class="fa-txt">واحدة من الشركات الرائدة في حلول التكييف المتكاملة في المملكة العربية السعودية</p>
 <ul class="fct">
 <li><a href="tel:0555808224"><i class="fa fa-phone"></i> +966 555 808 224</a></li>
@@ -106,7 +101,6 @@
 <a href="about.html">من نحن</a>
 <a href="services.html">خدماتنا</a>
 <a href="projects.html">المشاريع</a>
-<a href="partners.html">شركاؤنا</a>
 <a href="testimonials.html">آراء العملاء</a>
 <a href="services.html">نظم التبريد</a>
 <a href="services.html">برامج الصيانة</a>
