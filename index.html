@@ -12,8 +12,7 @@
 <body class="">
 
 <div id="loader">
-    <div class="loader-spinner"></div>
-    <div class="loader-text">العواد للتكييف</div>
+    <img src="assets/transition.gif" alt="جاري التحميل...">
 </div>
 
 <header class="hdr">
@@ -21,7 +20,7 @@
 <div class="logo"><a href="index.html"><img src="assets/logo.svg" alt="العواد للتكييف"></a></div>
 <nav class="mnav"><a href="index.html" class="act">الرئيسية</a><a href="about.html" class="">من نحن</a><a href="services.html" class="">خدماتنا</a><a href="projects.html" class="">المشاريع</a><a href="testimonials.html" class="">آراء العملاء</a><a href="contact.html" class="">تواصل معنا</a></nav>
 <div class="hx">
-<a href="contact.html" class="btn btn-sky">طلب الصيانة</a>
+<a href="contact.html" class="btn btn-fill">طلب الصيانة</a>
 <button class="burg" onclick="openMob()"><span></span><span></span><span></span></button>
 </div>
 </div>
@@ -144,23 +143,68 @@
 <!-- ============ قسم خدمات ما بعد البيع ============ -->
 <section class="aftersales">
 <div class="aftersales-c">
+<div class="as-header">
 <h2 class="as-title">خدمات ما بعد البيع</h2>
-
-<div class="as-tabs">
-<button class="as-tab active" data-tab="maintenance"><i class="fa fa-tools"></i> الصيانة</button>
-<button class="as-tab" data-tab="parts"><i class="fa fa-cog"></i> قطع الغيار</button>
+<p class="as-subtitle">After-sales service</p>
 </div>
 
-<div class="as-panel active" id="as-maintenance">
-<p>نؤمن بأن علاقتنا مع العميل لا تنتهي بعد التركيب، بل تبدأ رحلة جديدة من الدعم المستمر.</p>
-<p>نقدم خدمة صيانة ما بعد البيع بمستوى عالٍ من الاحترافية، عبر فريق فني مدرّب وجاهز للتدخل السريع في أي وقت لضمان استمرارية وكفاءة أجهزة التكييف.</p>
-<p>نلتزم بالاستجابة السريعة وتنفيذ أعمال الصيانة الدورية والطارئة للحفاظ على أعلى مستوى من الأداء والراحة لعملائنا.</p>
+<!-- شكل اللانهاية بـ SVG -->
+<div class="as-infinity">
+<svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+<defs>
+<linearGradient id="infGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="rgba(255,255,255,0.5)"/>
+<stop offset="50%" stop-color="rgba(255,255,255,0.9)"/>
+<stop offset="100%" stop-color="rgba(255,255,255,0.5)"/>
+</linearGradient>
+</defs>
+<path d="M 80,140 C 80,40 230,40 280,140 C 330,240 470,240 520,140 C 570,40 720,40 720,140 C 720,240 570,240 520,140 C 470,40 330,40 280,140 C 230,240 80,240 80,140 Z" 
+      fill="none" stroke="url(#infGrad)" stroke-width="2.5" class="inf-path"/>
+</svg>
 </div>
 
-<div class="as-panel" id="as-parts">
-<p>نحرص في <strong>شركة العواد</strong> على توفير قطع غيار أصلية ومعتمدة لجميع أجهزة التكييف التي نوفرها.</p>
-<p>نضمن للعميل توفر القطع الأساسية في أسرع وقت ممكن وبأسعار مناسبة، مما يساهم في إطالة عمر الأجهزة وتقليل الأعطال.</p>
-<p>كما نقدم ضمانًا على قطع الغيار واستبدالها عند الحاجة، مما يضمن راحة البال والثقة الكاملة بخدماتنا.</p>
+<div class="as-cards">
+<div class="as-card active" data-card="response">
+<div class="as-card-icon">
+<i class="fa fa-bolt"></i>
+</div>
+<h3>سرعة التجاوب</h3>
+<p class="as-en">Response time</p>
+</div>
+
+<div class="as-card" data-card="parts">
+<div class="as-card-icon">
+<i class="fa fa-cogs"></i>
+</div>
+<h3>توفر قطع الغيار</h3>
+<p class="as-en">Spare parts availability</p>
+</div>
+
+<div class="as-card" data-card="maintenance">
+<div class="as-card-icon">
+<i class="fa fa-tools"></i>
+</div>
+<h3>الصيانة</h3>
+<p class="as-en">Maintenance</p>
+</div>
+</div>
+
+<!-- محتوى تفصيلي يظهر تحت -->
+<div class="as-details">
+<div class="as-detail active" id="as-response">
+<h4><i class="fa fa-bolt"></i> سرعة التجاوب</h4>
+<p>نلتزم بالاستجابة السريعة لكل اتصال وطلب من عملائنا. فريقنا الفني جاهز للتدخل السريع في أي وقت لضمان استمرارية وكفاءة أجهزة التكييف.</p>
+</div>
+
+<div class="as-detail" id="as-parts">
+<h4><i class="fa fa-cogs"></i> توفر قطع الغيار</h4>
+<p>نحرص في <strong>شركة العواد</strong> على توفير قطع غيار أصلية ومعتمدة لجميع أجهزة التكييف التي نوفرها. نضمن للعميل توفر القطع الأساسية في أسرع وقت ممكن وبأسعار مناسبة، مما يساهم في إطالة عمر الأجهزة وتقليل الأعطال. كما نقدم ضمانًا على قطع الغيار واستبدالها عند الحاجة، مما يضمن راحة البال والثقة الكاملة بخدماتنا.</p>
+</div>
+
+<div class="as-detail" id="as-maintenance">
+<h4><i class="fa fa-tools"></i> الصيانة</h4>
+<p>نؤمن بأن علاقتنا مع العميل لا تنتهي بعد التركيب، بل تبدأ رحلة جديدة من الدعم المستمر. نقدم خدمة صيانة ما بعد البيع بمستوى عالٍ من الاحترافية، عبر فريق فني مدرّب وجاهز للتدخل السريع في أي وقت لضمان استمرارية وكفاءة أجهزة التكييف. نلتزم بالاستجابة السريعة وتنفيذ أعمال الصيانة الدورية والطارئة للحفاظ على أعلى مستوى من الأداء والراحة لعملائنا.</p>
+</div>
 </div>
 </div>
 </section>

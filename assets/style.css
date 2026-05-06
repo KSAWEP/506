@@ -33,32 +33,37 @@ ul,ol{list-style:none}
     position:fixed;inset:0;z-index:99999;
     background:var(--navy);
     display:flex;align-items:center;justify-content:center;
-    flex-direction:column;gap:24px;
     transition:opacity .4s ease,visibility .4s ease;
 }
 #loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.loader-spinner{
-    width:48px;height:48px;
-    border:3px solid rgba(91,192,235,0.2);
-    border-top-color:var(--sky);
-    border-radius:50%;
-    animation:spin .8s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loader-text{
-    color:var(--w);font-size:14px;
-    letter-spacing:3px;font-weight:500;opacity:.85;
+#loader img{
+    max-width:280px;
+    width:60%;
+    height:auto;
 }
 
-/* ========== ستار الانتقال ========== */
+/* ========== ستار الانتقال - GIF ========== */
 #curtain{
     position:fixed;inset:0;z-index:9999;
     background:var(--navy);
-    transform:translateY(100%);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;
     pointer-events:none;
-    transition:transform .5s cubic-bezier(0.7, 0, 0.84, 0);
+    transition:opacity .3s ease,visibility .3s ease;
 }
-#curtain.up{transform:translateY(0);pointer-events:all}
+#curtain.up{
+    opacity:1;visibility:visible;
+    pointer-events:all;
+}
+#curtain img{
+    max-width:280px;
+    width:60%;
+    height:auto;
+}
+
+@media(max-width:480px){
+    #loader img,#curtain img{max-width:200px;width:70%}
+}
 
 /* ========== أزرار - بسيطة ========== */
 .btn{
@@ -291,8 +296,8 @@ body.inner-page .burg{background:rgba(10,38,71,0.05);border-color:var(--border)}
 
 /* ========== قسم خدمات ما بعد البيع ========== */
 .aftersales{
-    background:var(--sky);
-    padding:80px 28px 100px;
+    background:linear-gradient(135deg,#0072BC 0%,#005a96 100%);
+    padding:80px 28px 90px;
     position:relative;
     overflow:hidden;
 }
@@ -300,7 +305,9 @@ body.inner-page .burg{background:rgba(10,38,71,0.05);border-color:var(--border)}
     content:'';
     position:absolute;
     inset:0;
-    background:linear-gradient(135deg,rgba(0,114,188,0.15) 0%,rgba(91,192,235,0) 60%);
+    background:
+        radial-gradient(ellipse at top right,rgba(91,192,235,0.25),transparent 50%),
+        radial-gradient(ellipse at bottom left,rgba(255,255,255,0.08),transparent 50%);
     pointer-events:none;
 }
 .aftersales-c{
@@ -309,82 +316,218 @@ body.inner-page .burg{background:rgba(10,38,71,0.05);border-color:var(--border)}
     position:relative;
     z-index:2;
 }
+.as-header{text-align:center;margin-bottom:50px}
 .as-title{
-    text-align:center;
     color:#fff;
-    font-size:38px;
+    font-size:42px;
     font-weight:700;
-    margin-bottom:36px;
+    margin-bottom:8px;
     letter-spacing:-.5px;
 }
-.as-tabs{
-    display:flex;
-    gap:0;
-    justify-content:center;
-    margin-bottom:0;
+.as-subtitle{
+    color:rgba(255,255,255,0.7);
+    font-size:17px;
+    font-weight:400;
+    letter-spacing:2px;
+}
+
+/* شكل اللانهاية */
+.as-infinity{
+    position:absolute;
+    inset:auto 0 60px 0;
+    z-index:1;
+    width:100%;
+    height:240px;
+    pointer-events:none;
+    opacity:.65;
+}
+.as-infinity svg{
+    width:100%;
+    height:100%;
+}
+.inf-path{
+    stroke-dasharray:6 4;
+    animation:dashFlow 30s linear infinite;
+}
+@keyframes dashFlow{
+    to{stroke-dashoffset:-300}
+}
+
+/* البطاقات الثلاث */
+.as-cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
     position:relative;
-    z-index:3;
+    z-index:2;
+    margin-bottom:40px;
 }
-.as-tab{
-    padding:14px 36px;
-    font-size:15px;font-weight:700;
-    color:rgba(255,255,255,0.8);
-    background:transparent;
-    border:none;
-    cursor:pointer;
-    transition:all .3s;
-    border-radius:10px 10px 0 0;
-    display:inline-flex;
+.as-card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:50%;
+    aspect-ratio:1;
+    max-width:240px;
+    margin:0 auto;
+    width:100%;
+    display:flex;
+    flex-direction:column;
     align-items:center;
-    gap:8px;
-    font-family:inherit;
-}
-.as-tab i{font-size:13px}
-.as-tab:hover{color:#fff}
-.as-tab.active{
-    background:#fff;
-    color:var(--navy);
-}
-.as-panel{
-    display:none;
-    background:#fff;
-    padding:40px 50px;
-    border-radius:14px;
-    border-top-right-radius:0;
-    box-shadow:0 14px 40px rgba(10,38,71,0.12);
+    justify-content:center;
     text-align:center;
+    padding:30px 20px;
+    cursor:pointer;
+    transition:all .35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position:relative;
 }
-.as-panel.active{
+.as-card::before{
+    content:'';
+    position:absolute;
+    inset:-3px;
+    border-radius:50%;
+    background:linear-gradient(135deg,rgba(255,255,255,0.4),rgba(255,255,255,0));
+    opacity:0;
+    transition:opacity .3s;
+    z-index:-1;
+}
+.as-card:hover,
+.as-card.active{
+    background:#fff;
+    transform:translateY(-8px) scale(1.05);
+    box-shadow:0 18px 40px rgba(0,0,0,0.25);
+}
+.as-card:hover::before,
+.as-card.active::before{opacity:1}
+
+.as-card-icon{
+    width:60px;height:60px;border-radius:50%;
+    background:rgba(255,255,255,0.15);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:24px;
+    margin-bottom:14px;
+    transition:all .3s;
+}
+.as-card:hover .as-card-icon,
+.as-card.active .as-card-icon{
+    background:var(--brand);
+    color:#fff;
+}
+.as-card h3{
+    color:#fff;
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:6px;
+    transition:color .3s;
+}
+.as-card.active h3,
+.as-card:hover h3{color:var(--navy)}
+.as-card .as-en{
+    color:rgba(255,255,255,0.7);
+    font-size:13px;
+    font-weight:400;
+    transition:color .3s;
+}
+.as-card.active .as-en,
+.as-card:hover .as-en{color:var(--brand)}
+
+/* تفاصيل الخدمة */
+.as-details{
+    background:#fff;
+    border-radius:18px;
+    padding:36px 44px;
+    box-shadow:0 14px 40px rgba(0,0,0,0.18);
+    position:relative;
+    z-index:2;
+}
+.as-detail{
+    display:none;
+}
+.as-detail.active{
     display:block;
-    animation:fadeInPanel .4s ease-out;
+    animation:fadeInDetail .4s ease-out;
 }
-@keyframes fadeInPanel{
-    from{opacity:0;transform:translateY(10px)}
+@keyframes fadeInDetail{
+    from{opacity:0;transform:translateY(8px)}
     to{opacity:1;transform:translateY(0)}
 }
-.as-panel p{
-    font-size:15.5px;
-    color:var(--txt-mute);
-    line-height:2;
+.as-detail h4{
+    color:var(--navy);
+    font-size:22px;
+    font-weight:700;
     margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
-.as-panel p:last-child{margin-bottom:0}
-.as-panel p strong{color:var(--navy);font-weight:700}
+.as-detail h4 i{
+    color:var(--brand);
+    font-size:20px;
+    background:rgba(0,114,188,0.08);
+    width:42px;height:42px;
+    border-radius:10px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+.as-detail p{
+    color:var(--txt-mute);
+    font-size:15.5px;
+    line-height:2;
+    text-align:right;
+}
+.as-detail p strong{color:var(--navy);font-weight:700}
 
 /* Mobile */
 @media(max-width:992px){
-    .aftersales{padding:60px 20px 80px}
-    .as-title{font-size:28px;margin-bottom:28px}
-    .as-tab{padding:12px 24px;font-size:13.5px}
-    .as-panel{padding:28px 22px;border-radius:12px;border-top-right-radius:0}
-    .as-panel p{font-size:14px;line-height:1.9}
+    .aftersales{padding:60px 18px 70px}
+    .as-title{font-size:30px}
+    .as-subtitle{font-size:14px;letter-spacing:1.5px}
+    .as-header{margin-bottom:36px}
+    
+    .as-cards{
+        grid-template-columns:1fr;
+        gap:20px;
+        max-width:280px;
+        margin-left:auto;
+        margin-right:auto;
+        margin-bottom:30px;
+    }
+    .as-card{
+        max-width:100%;
+        aspect-ratio:auto;
+        border-radius:16px;
+        flex-direction:row;
+        text-align:right;
+        padding:18px 22px;
+        gap:16px;
+        justify-content:flex-start;
+    }
+    .as-card-icon{
+        width:48px;height:48px;font-size:20px;
+        margin-bottom:0;flex-shrink:0;
+    }
+    .as-card h3{font-size:16px;margin-bottom:2px}
+    .as-card .as-en{font-size:12px}
+    .as-card:hover,
+    .as-card.active{transform:translateY(-3px) scale(1.02)}
+    
+    /* إخفاء شكل اللانهاية في الجوال */
+    .as-infinity{display:none}
+    
+    .as-details{padding:24px 20px;border-radius:14px}
+    .as-detail h4{font-size:18px;margin-bottom:12px}
+    .as-detail h4 i{width:36px;height:36px;font-size:16px}
+    .as-detail p{font-size:14px;line-height:1.9}
 }
 @media(max-width:480px){
     .as-title{font-size:24px}
-    .as-tab{padding:11px 18px;font-size:13px}
-    .as-tab i{font-size:12px}
-    .as-panel{padding:22px 18px}
-    .as-panel p{font-size:13.5px}
+    .as-subtitle{font-size:13px}
+    .as-card{padding:16px 18px;gap:12px}
+    .as-card-icon{width:42px;height:42px;font-size:18px}
+    .as-card h3{font-size:15px}
+    .as-detail p{font-size:13.5px}
 }
 
 /* ========== سلايدر الشركاء المتحرك ========== */
