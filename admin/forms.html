@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a2647">
+<title>النماذج والروابط | لوحة التحكم</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/admin.css">
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+<div class="sb-logo">
+<img src="../assets/logo.svg" alt="">
+<div class="sb-brand">
+<h2>لوحة التحكم</h2>
+<p>العواد للتكييف</p>
+</div>
+</div>
+
+<nav class="sb-nav">
+<a href="dashboard.html"><i class="fa fa-tachometer-alt"></i> نظرة عامة</a>
+<a href="forms.html" class="active"><i class="fa fa-link"></i> النماذج والروابط</a>
+<a href="requests.html"><i class="fa fa-users"></i> طلبات الاهتمام</a>
+<a href="#" onclick="logout()"><i class="fa fa-sign-out-alt"></i> تسجيل الخروج</a>
+</nav>
+
+<div class="sb-foot">
+<div class="sb-contact"><i class="fa fa-phone"></i> <span class="ltr-num">+966 555 808 224</span></div>
+<div class="sb-contact"><i class="fa fa-envelope"></i> <a href="mailto:aircon.alawad@gmail.com">aircon.alawad@gmail.com</a></div>
+</div>
+</aside>
+
+<main class="main-content">
+<header class="top-bar">
+<button class="mobile-toggle" onclick="toggleSidebar()"><i class="fa fa-bars"></i></button>
+<div class="tb-title">
+<h1><i class="fa fa-link"></i> النماذج والروابط</h1>
+<p>أنشئ نماذج اهتمام بروابط مخصصة</p>
+</div>
+<button class="btn-add" onclick="openFormModal()">
+<i class="fa fa-plus"></i> نموذج جديد
+</button>
+</header>
+
+<section class="forms-grid" id="formsGrid">
+<div class="empty-state">
+<i class="fa fa-link"></i>
+<h3>لا توجد نماذج</h3>
+<p>أنشئ أول نموذج وشاركه</p>
+<button class="btn-add" onclick="openFormModal()" style="margin-top:20px">
+<i class="fa fa-plus"></i> إنشاء نموذج جديد
+</button>
+</div>
+</section>
+
+</main>
+
+<!-- مودال إنشاء/تعديل نموذج -->
+<div class="modal" id="formModal">
+<div class="modal-bg" onclick="closeFormModal()"></div>
+<div class="modal-content">
+<div class="modal-head">
+<h2><i class="fa fa-plus-circle"></i> <span id="modalTitle">إنشاء نموذج اهتمام جديد</span></h2>
+<button class="modal-close" onclick="closeFormModal()">✕</button>
+</div>
+
+<form id="newFormForm" class="modal-body">
+<input type="hidden" id="formId">
+
+<div class="fm-group">
+<label><i class="fa fa-building"></i> اسم المشروع *</label>
+<input type="text" id="projectName" required placeholder="مثلاً: تكييف فيلا الياسمين">
+</div>
+
+<div class="fm-group">
+<label><i class="fa fa-link"></i> الرابط المخصص *</label>
+<div class="url-input">
+<span class="url-prefix">alawad.site/</span>
+<input type="text" id="customSlug" required placeholder="فيلا3" pattern="[a-zA-Z0-9\u0621-\u064A_-]+">
+</div>
+<small class="fm-hint">مثال: <strong>فيلا3</strong> → alawad.site/فيلا3</small>
+</div>
+
+<div class="fm-row">
+<div class="fm-group">
+<label><i class="fa fa-home"></i> رقم الفيلا / الوحدة</label>
+<input type="text" id="unitNum" placeholder="A-12">
+</div>
+
+<div class="fm-group">
+<label><i class="fa fa-headset"></i> مسؤول التواصل</label>
+<input type="text" id="contactPerson" placeholder="اسم المسؤول">
+</div>
+</div>
+
+<div class="fm-group">
+<label><i class="fa fa-heading"></i> عنوان النموذج <span class="opt">(اختياري)</span></label>
+<input type="text" id="formTitle" placeholder="عرض خاص لتكييف الفيلا">
+</div>
+
+<div class="fm-group">
+<label><i class="fa fa-sticky-note"></i> ملاحظات داخلية</label>
+<textarea id="formNotes" placeholder="ملاحظات للفريق الداخلي..."></textarea>
+</div>
+
+<div class="modal-foot">
+<button type="submit" class="btn-save"><i class="fa fa-check"></i> حفظ النموذج</button>
+<button type="button" class="btn-cancel" onclick="closeFormModal()">إلغاء</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- مودال QR Code -->
+<div class="modal" id="qrModal">
+<div class="modal-bg" onclick="closeQRModal()"></div>
+<div class="modal-content modal-sm">
+<div class="modal-head">
+<h2><i class="fa fa-qrcode"></i> باركود الرابط</h2>
+<button class="modal-close" onclick="closeQRModal()">✕</button>
+</div>
+<div class="modal-body qr-body">
+<div id="qrCode"></div>
+<p id="qrUrl" class="qr-url"></p>
+<div class="modal-foot" style="justify-content:center">
+<button class="btn-save" onclick="downloadQR()"><i class="fa fa-download"></i> تحميل PNG</button>
+<button class="btn-cancel" onclick="closeQRModal()">إغلاق</button>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="assets/admin.js"></script>
+<script src="assets/forms.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a2647">
+<title>نظرة عامة | لوحة التحكم</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/admin.css">
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+<div class="sb-logo">
+<img src="../assets/logo.svg" alt="">
+<div class="sb-brand">
+<h2>لوحة التحكم</h2>
+<p>العواد للتكييف</p>
+</div>
+</div>
+
+<nav class="sb-nav">
+<a href="dashboard.html" class="active"><i class="fa fa-tachometer-alt"></i> نظرة عامة</a>
+<a href="forms.html"><i class="fa fa-link"></i> النماذج والروابط</a>
+<a href="requests.html"><i class="fa fa-users"></i> طلبات الاهتمام</a>
+<a href="#" onclick="logout()"><i class="fa fa-sign-out-alt"></i> تسجيل الخروج</a>
+</nav>
+
+<div class="sb-foot">
+<div class="sb-contact">
+<i class="fa fa-phone"></i>
+<span class="ltr-num">+966 555 808 224</span>
+</div>
+<div class="sb-contact">
+<i class="fa fa-envelope"></i>
+<a href="mailto:aircon.alawad@gmail.com">aircon.alawad@gmail.com</a>
+</div>
+<div class="sb-contact">
+<i class="fa fa-map-marker-alt"></i>
+<span>الرياض، السعودية</span>
+</div>
+</div>
+</aside>
+
+<!-- Main -->
+<main class="main-content">
+<header class="top-bar">
+<button class="mobile-toggle" onclick="toggleSidebar()"><i class="fa fa-bars"></i></button>
+<div class="tb-title">
+<h1><i class="fa fa-hand-paper"></i> مرحباً بك</h1>
+<p>نظرة عامة على النظام <span class="live-badge"><i class="fa fa-circle"></i> مباشر</span></p>
+</div>
+</header>
+
+<!-- إحصائيات -->
+<section class="stats-grid">
+<div class="stat-card">
+<div class="stat-icon blue"><i class="fa fa-link"></i></div>
+<div class="stat-info">
+<div class="stat-num" id="totalForms">0</div>
+<div class="stat-label">النماذج</div>
+</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-icon green"><i class="fa fa-users"></i></div>
+<div class="stat-info">
+<div class="stat-num" id="totalRequests">0</div>
+<div class="stat-label">الطلبات</div>
+</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-icon purple"><i class="fa fa-eye"></i></div>
+<div class="stat-info">
+<div class="stat-num" id="totalViews">0</div>
+<div class="stat-label">المشاهدات</div>
+</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-icon orange"><i class="fa fa-star"></i></div>
+<div class="stat-info">
+<div class="stat-num" id="newRequests">0</div>
+<div class="stat-label">جديدة</div>
+</div>
+</div>
+</section>
+
+<!-- آخر الطلبات -->
+<section class="dash-section">
+<div class="ds-head">
+<h2><i class="fa fa-clock"></i> آخر الطلبات</h2>
+<a href="requests.html" class="ds-link">عرض الكل <i class="fa fa-arrow-left"></i></a>
+</div>
+
+<div class="ds-body" id="recentRequests">
+<div class="empty-state">
+<i class="fa fa-inbox"></i>
+<h3>لا توجد طلبات بعد</h3>
+<p>ستظهر عند استلامها</p>
+</div>
+</div>
+</section>
+
+</main>
+
+<script src="assets/admin.js"></script>
+<script>
+checkAuth();
+
+document.addEventListener('DOMContentLoaded', async function(){
+    const stats = await loadStats();
+    document.getElementById('totalForms').textContent = stats.forms;
+    document.getElementById('totalRequests').textContent = stats.requests;
+    document.getElementById('totalViews').textContent = stats.views;
+    document.getElementById('newRequests').textContent = stats.newReqs;
+    
+    // عرض آخر 5 طلبات
+    if(stats.recent && stats.recent.length > 0){
+        const html = stats.recent.slice(0, 5).map(r => `
+            <div class="req-row">
+                <div class="rr-info">
+                    <div class="rr-name">${r.name || '-'}</div>
+                    <div class="rr-meta">
+                        <span><i class="fa fa-phone"></i> <span class="ltr-num">${r.phone || '-'}</span></span>
+                        ${r.form ? `<span><i class="fa fa-link"></i> ${r.form}</span>` : ''}
+                    </div>
+                </div>
+                <div class="rr-time">${r.date || ''}</div>
+            </div>
+        `).join('');
+        document.getElementById('recentRequests').innerHTML = html;
+    }
+});
+</script>
+</body>
+</html>

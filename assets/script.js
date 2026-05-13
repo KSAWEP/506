@@ -67,7 +67,10 @@ document.addEventListener('DOMContentLoaded', function(){
             const msgDiv = document.getElementById('formMsg');
             const formData = new FormData(this);
             
-            // البيانات
+            // التحقق من النموذج المرتبط (لو الزائر جاي من رابط نموذج)
+            const urlParams = new URLSearchParams(window.location.search);
+            const formSlug = urlParams.get('f') || '';
+            
             const data = {
                 date: new Date().toLocaleString('ar-SA'),
                 name: formData.get('name'),
@@ -75,35 +78,33 @@ document.addEventListener('DOMContentLoaded', function(){
                 email: formData.get('email') || '-',
                 region: formData.get('region'),
                 service: formData.get('service'),
-                message: formData.get('message') || '-'
+                message: formData.get('message') || '-',
+                formSlug: formSlug,
+                status: 'new'
             };
             
-            // تعطيل الزر
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> جاري الإرسال...';
             msgDiv.className = 'form-msg';
             msgDiv.textContent = '';
             
+            // حفظ في localStorage للوحة التحكم
             try {
-                if(SHEETS_URL === 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE'){
-                    // وضع التجربة - يعرض البيانات فقط
-                    console.log('بيانات الفورم:', data);
-                    await new Promise(r => setTimeout(r, 800));
-                    msgDiv.className = 'form-msg success';
-                    msgDiv.innerHTML = '<i class="fa fa-check-circle"></i> تم استلام طلبك بنجاح! سنتواصل معك خلال 24 ساعة';
-                    contactForm.reset();
-                } else {
-                    // إرسال إلى Google Sheets
-                    await fetch(SHEETS_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(data)
-                    });
-                    msgDiv.className = 'form-msg success';
-                    msgDiv.innerHTML = '<i class="fa fa-check-circle"></i> تم استلام طلبك بنجاح! سنتواصل معك خلال 24 ساعة';
-                    contactForm.reset();
-                }
+                const requests = JSON.parse(localStorage.getItem('alawad_requests') || '[]');
+                requests.push(data);
+                localStorage.setItem('alawad_requests', JSON.stringify(requests));
+            } catch(e){}
+            
+            try {
+                await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                msgDiv.className = 'form-msg success';
+                msgDiv.innerHTML = '<i class="fa fa-check-circle"></i> تم استلام طلبك بنجاح! سنتواصل معك خلال 24 ساعة';
+                contactForm.reset();
             } catch(err) {
                 msgDiv.className = 'form-msg error';
                 msgDiv.innerHTML = '<i class="fa fa-exclamation-circle"></i> حدث خطأ. يرجى المحاولة مرة أخرى أو الاتصال بنا مباشرة';

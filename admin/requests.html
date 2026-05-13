@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a2647">
+<title>طلبات الاهتمام | لوحة التحكم</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/admin.css">
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+<div class="sb-logo">
+<img src="../assets/logo.svg" alt="">
+<div class="sb-brand">
+<h2>لوحة التحكم</h2>
+<p>العواد للتكييف</p>
+</div>
+</div>
+
+<nav class="sb-nav">
+<a href="dashboard.html"><i class="fa fa-tachometer-alt"></i> نظرة عامة</a>
+<a href="forms.html"><i class="fa fa-link"></i> النماذج والروابط</a>
+<a href="requests.html" class="active"><i class="fa fa-users"></i> طلبات الاهتمام</a>
+<a href="#" onclick="logout()"><i class="fa fa-sign-out-alt"></i> تسجيل الخروج</a>
+</nav>
+
+<div class="sb-foot">
+<div class="sb-contact"><i class="fa fa-phone"></i> <span class="ltr-num">+966 555 808 224</span></div>
+<div class="sb-contact"><i class="fa fa-envelope"></i> <a href="mailto:aircon.alawad@gmail.com">aircon.alawad@gmail.com</a></div>
+</div>
+</aside>
+
+<main class="main-content">
+<header class="top-bar">
+<button class="mobile-toggle" onclick="toggleSidebar()"><i class="fa fa-bars"></i></button>
+<div class="tb-title">
+<h1><i class="fa fa-users"></i> طلبات الاهتمام</h1>
+<p>جميع الطلبات المستلمة</p>
+</div>
+<button class="btn-add" onclick="exportCSV()">
+<i class="fa fa-download"></i> تصدير CSV
+</button>
+</header>
+
+<div class="filters-bar">
+<div class="search-box">
+<i class="fa fa-search"></i>
+<input type="text" id="searchInput" placeholder="بحث بالاسم أو الجوال..." oninput="filterRequests()">
+</div>
+
+<select id="formFilter" onchange="filterRequests()">
+<option value="">كل النماذج</option>
+</select>
+
+<select id="statusFilter" onchange="filterRequests()">
+<option value="">كل الحالات</option>
+<option value="new">جديد</option>
+<option value="contacted">تم التواصل</option>
+<option value="completed">مكتمل</option>
+</select>
+</div>
+
+<section class="requests-table" id="requestsTable">
+<div class="empty-state">
+<i class="fa fa-inbox"></i>
+<h3>لا توجد طلبات</h3>
+<p>ستظهر عند تسجيلها</p>
+</div>
+</section>
+
+</main>
+
+<!-- مودال تحديث حالة الطلب -->
+<div class="modal" id="statusModal">
+<div class="modal-bg" onclick="closeStatusModal()"></div>
+<div class="modal-content modal-sm">
+<div class="modal-head">
+<h2><i class="fa fa-edit"></i> تحديث حالة الطلب</h2>
+<button class="modal-close" onclick="closeStatusModal()">✕</button>
+</div>
+<div class="modal-body">
+<div class="req-detail" id="reqDetail"></div>
+
+<div class="fm-group">
+<label><i class="fa fa-flag"></i> الحالة</label>
+<select id="newStatus">
+<option value="new">جديد</option>
+<option value="contacted">تم التواصل</option>
+<option value="completed">مكتمل</option>
+</select>
+</div>
+
+<div class="modal-foot">
+<button class="btn-save" onclick="updateStatus()"><i class="fa fa-check"></i> تحديث</button>
+<button class="btn-cancel" onclick="closeStatusModal()">إلغاء</button>
+</div>
+</div>
+</div>
+</div>
+
+<script src="assets/admin.js"></script>
+<script src="assets/requests.js"></script>
+</body>
+</html>

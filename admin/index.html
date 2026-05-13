@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a2647">
+<title>لوحة التحكم | العواد للتكييف</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/admin.css">
+</head>
+<body class="login-body">
+
+<div class="login-wrap">
+<div class="login-card">
+<div class="login-logo">
+<img src="../assets/logo.svg" alt="العواد للتكييف">
+</div>
+
+<div class="login-head">
+<h1>لوحة التحكم</h1>
+<p>سجّل دخولك للوصول إلى لوحة الإدارة</p>
+</div>
+
+<form id="loginForm" class="login-form">
+<div class="lf-group">
+<label><i class="fa fa-user"></i> اسم المستخدم</label>
+<input type="text" id="username" required placeholder="أدخل اسم المستخدم">
+</div>
+
+<div class="lf-group">
+<label><i class="fa fa-lock"></i> كلمة المرور</label>
+<input type="password" id="password" required placeholder="••••••••">
+</div>
+
+<div id="loginError" class="lf-error"></div>
+
+<button type="submit" class="lf-btn">
+<i class="fa fa-sign-in-alt"></i> تسجيل الدخول
+</button>
+</form>
+
+<div class="login-foot">
+<a href="../index.html"><i class="fa fa-arrow-left"></i> العودة للموقع</a>
+</div>
+</div>
+</div>
+
+<script src="assets/admin.js"></script>
+<script>
+// تسجيل الدخول
+document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value.trim();
+    const err = document.getElementById('loginError');
+    
+    // بيانات الدخول - يمكنك تغييرها
+    if(u === 'alawad' && p === 'admin2025'){
+        localStorage.setItem('alawad_admin', 'true');
+        localStorage.setItem('alawad_admin_time', Date.now());
+        window.location.href = 'dashboard.html';
+    } else {
+        err.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة';
+        err.classList.add('show');
+        setTimeout(() => err.classList.remove('show'), 3000);
+    }
+});
+
+// لو الدخول مسجل، حوله مباشرة
+if(localStorage.getItem('alawad_admin') === 'true'){
+    window.location.href = 'dashboard.html';
+}
+</script>
+</body>
+</html>
