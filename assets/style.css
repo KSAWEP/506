@@ -642,6 +642,7 @@ body.inner-page .burg{background:rgba(10,38,71,0.05);border-color:var(--border)}
 }
 .cti-l{font-size:11px;color:var(--txt-faint);margin-bottom:4px;letter-spacing:1.2px;font-weight:600;text-transform:uppercase}
 .cti-v{font-size:15px;font-weight:600;color:var(--navy);line-height:1.5}
+.cti-v a{direction:ltr;unicode-bidi:embed;display:inline-block}
 .cti-v a:hover{color:var(--sky)}
 
 .ctform{
@@ -724,7 +725,8 @@ body.inner-page .burg{background:rgba(10,38,71,0.05);border-color:var(--border)}
 .fct li{margin-bottom:10px;font-size:13px}
 .fct a{color:rgba(255,255,255,0.7);transition:color .25s;display:inline-flex;align-items:center;gap:10px}
 .fct a:hover{color:var(--sky)}
-.fct i{color:var(--sky);font-size:12px;width:18px}
+.fct i{color:var(--sky);font-size:12px;width:18px;flex-shrink:0}
+.fct .ltr-num{direction:ltr;unicode-bidi:embed}
 .flt{font-size:17px;font-weight:700;margin-bottom:20px;color:#fff}
 .flg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .flg a{color:rgba(255,255,255,0.6);font-size:13px;transition:color .25s}
