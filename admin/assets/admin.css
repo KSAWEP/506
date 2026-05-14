@@ -617,7 +617,8 @@ ul,ol{list-style:none}
 .fm-group label .opt{color:var(--txt-faint);font-size:11px;font-weight:400;margin-right:4px}
 .fm-group input,
 .fm-group textarea,
-.fm-group select{
+.fm-group select,
+.fm-group .full-input{
     width:100%;
     padding:12px 14px;
     background:var(--bg-soft);

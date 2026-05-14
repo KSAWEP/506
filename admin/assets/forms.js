@@ -43,8 +43,8 @@ function renderForms(){
         <div class="form-card">
             <div class="fc-head">
                 <div>
-                    <div class="fc-title">${escapeHtml(f.projectName)}</div>
-                    ${f.unitNum ? `<div class="fc-unit"><i class="fa fa-home"></i> ${escapeHtml(f.unitNum)}</div>` : ''}
+                    <div class="fc-title">${escapeHtml(f.slug)}</div>
+                    <div class="fc-unit"><i class="fa fa-link"></i> رابط مخصص</div>
                 </div>
                 <div class="fc-stats">
                     <div class="fc-stat"><i class="fa fa-eye"></i> ${f.views || 0}</div>
@@ -56,7 +56,7 @@ function renderForms(){
                 <div class="fc-meta">
                     ${f.sheetUrl ? (
                         f.sheetUrl.startsWith('https://script.google.com') 
-                        ? `<span style="color:var(--green)"><i class="fa fa-check-circle"></i> مربوط بشيت (Apps Script)</span>`
+                        ? `<span style="color:var(--green)"><i class="fa fa-check-circle"></i> مربوط بشيت</span>`
                         : `<span style="color:var(--orange)"><i class="fa fa-exclamation-triangle"></i> يحتاج إعداد Apps Script</span>`
                     ) : `<span style="color:var(--txt-faint)"><i class="fa fa-info-circle"></i> غير مربوط بشيت</span>`}
                     ${f.contactPerson ? `<span><i class="fa fa-headset"></i> ${escapeHtml(f.contactPerson)}</span>` : ''}
@@ -141,10 +141,10 @@ function saveForm(){
     const formData = {
         id: id,
         slug: slug,
-        projectName: document.getElementById('projectName').value.trim(),
-        unitNum: document.getElementById('unitNum').value.trim(),
+        projectName: slug,
+        unitNum: '',
         contactPerson: document.getElementById('contactPerson').value.trim(),
-        formTitle: document.getElementById('formTitle').value.trim(),
+        formTitle: '',
         notes: document.getElementById('formNotes').value.trim(),
         sheetUrl: sheetUrl,
         fields: customFields.filter(f => f.label && f.label.trim()),
@@ -177,11 +177,8 @@ function editForm(id){
     currentEditId = id;
     document.getElementById('modalTitle').textContent = 'تعديل النموذج';
     document.getElementById('formId').value = id;
-    document.getElementById('projectName').value = form.projectName || '';
     document.getElementById('customSlug').value = form.slug || '';
-    document.getElementById('unitNum').value = form.unitNum || '';
     document.getElementById('contactPerson').value = form.contactPerson || '';
-    document.getElementById('formTitle').value = form.formTitle || '';
     document.getElementById('formNotes').value = form.notes || '';
     
     // تحميل الحقول المخصصة

@@ -20,7 +20,7 @@ function populateFormFilter(){
     forms.forEach(f => {
         const opt = document.createElement('option');
         opt.value = f.slug;
-        opt.textContent = f.projectName;
+        opt.textContent = f.slug;
         select.appendChild(opt);
     });
 }
@@ -57,7 +57,7 @@ function renderRequests(requests){
                     <span><i class="fa fa-clock"></i> ${formatDate(r.date)}</span>
                 </div>
             </div>
-            ${form ? `<div class="rt-form">${escapeHtml(form.projectName)}</div>` : ''}
+            ${form ? `<div class="rt-form">${escapeHtml(form.slug)}</div>` : ''}
             <div class="rt-actions">
                 <button class="rt-btn" onclick="viewRequest(${idx})" title="عرض"><i class="fa fa-eye"></i></button>
                 <button class="rt-btn" onclick="window.open('tel:${escapeHtml(r.phone)}')" title="اتصال"><i class="fa fa-phone"></i></button>
@@ -110,7 +110,7 @@ function viewRequest(idx){
     
     document.getElementById('reqDetail').innerHTML = `
         ${fieldsHtml}
-        ${form ? `<div class="rd-row"><span class="rd-label">النموذج</span><span class="rd-value">${escapeHtml(form.projectName)}</span></div>` : ''}
+        ${form ? `<div class="rd-row"><span class="rd-label">النموذج</span><span class="rd-value">${escapeHtml(form.slug)}</span></div>` : ''}
         <div class="rd-row"><span class="rd-label">التاريخ</span><span class="rd-value">${formatDate(r.date)}</span></div>
     `;
     
@@ -157,7 +157,7 @@ function exportCSV(){
             r.name || '',
             r.phone || '',
             r.service || '',
-            form ? form.projectName : '',
+            form ? form.slug : '',
             statusText
         ];
     });

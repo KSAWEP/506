@@ -11,7 +11,7 @@
 <style>
 .fpage{
     min-height:100vh;
-    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-deep,#061a36) 100%);
+    background:linear-gradient(135deg,var(--navy) 0%,#061a36 100%);
     padding:40px 20px;
     display:flex;
     align-items:center;
@@ -24,18 +24,35 @@
     inset:0;
     background:radial-gradient(ellipse at top right,rgba(91,192,235,0.15),transparent 50%);
 }
+/* الإطار الخارجي - كحلي */
 .fcard{
-    background:#fff;
-    border-radius:18px;
-    padding:36px 32px;
-    max-width:500px;
+    background:var(--navy);
+    border-radius:24px;
+    padding:30px;
+    max-width:520px;
     width:100%;
-    box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
     position:relative;
     z-index:2;
+    border:1px solid rgba(91,192,235,0.2);
 }
-.flogo{text-align:center;margin-bottom:24px}
-.flogo img{height:60px;margin:0 auto}
+/* الشعار خارج الكرت الأبيض - على الكحلي */
+.flogo{
+    text-align:center;
+    margin-bottom:24px;
+    padding:8px 0;
+}
+.flogo img{
+    height:64px;
+    margin:0 auto;
+    /* عشان الشعار الأبيض يبين */
+}
+/* الكرت الأبيض الداخلي */
+.fcard-inner{
+    background:#fff;
+    border-radius:16px;
+    padding:32px 28px;
+}
 .fhead{text-align:center;margin-bottom:24px}
 .fhead h1{
     font-size:22px;
@@ -51,26 +68,37 @@
     padding:0;
     box-shadow:none;
     border:none;
+    background:transparent;
 }
 .fnotfound{text-align:center;padding:30px}
-.fnotfound i{font-size:50px;color:var(--red);margin-bottom:14px}
+.fnotfound i{font-size:50px;color:var(--red,#ef4444);margin-bottom:14px}
 .fnotfound h2{color:var(--navy);font-size:18px;margin-bottom:8px}
 .fnotfound p{color:var(--txt-mute);font-size:13.5px;margin-bottom:18px}
 .fnotfound a{color:var(--sky);font-weight:600}
+
+@media(max-width:480px){
+    .fcard{padding:20px;border-radius:20px}
+    .fcard-inner{padding:24px 20px;border-radius:14px}
+    .flogo img{height:54px}
+    .fhead h1{font-size:20px}
+}
 </style>
 </head>
 <body>
 
 <div class="fpage">
 <div class="fcard">
+
 <div class="flogo">
 <img src="assets/logo.svg" alt="العواد للتكييف">
 </div>
 
+<div class="fcard-inner">
 <div id="formContent">
 <div class="fhead">
 <h1>تسجيل اهتمام</h1>
 <p>جاري التحميل...</p>
+</div>
 </div>
 </div>
 
@@ -146,12 +174,12 @@ function renderForm(form){
         return `<div class="fgr"><label>${escapeHtml(field.label)}${reqStar}${optTxt}</label>${input}</div>`;
     }).join('');
     
-    const title = form.formTitle || form.projectName || 'تسجيل اهتمام';
+    const title = form.slug || 'تسجيل اهتمام';
     
     document.getElementById('formContent').innerHTML = `
         <div class="fhead">
             <h1>${escapeHtml(title)}</h1>
-            ${form.unitNum ? `<p>الوحدة: ${escapeHtml(form.unitNum)}</p>` : '<p>سجّل اهتمامك وسنتواصل معك قريباً</p>'}
+            <p>سجّل اهتمامك وسنتواصل معك قريباً</p>
         </div>
         
         <form class="ctform" id="dynForm">
@@ -182,7 +210,7 @@ async function submitForm(form, formEl){
     const data = {
         date: new Date().toLocaleString('ar-SA'),
         formSlug: form.slug,
-        formProject: form.projectName || '',
+        formProject: form.slug || '',
         status: 'new',
         fields: fieldData,
         // مفاتيح موحدة للتوافق
