@@ -37,10 +37,9 @@ function renderForms(){
     grid.innerHTML = forms.map(f => {
         const formRequests = requests.filter(r => r.formSlug === f.slug);
         const requestsCount = formRequests.length;
-        // الرابط الفعلي (للنسخ والفتح) - بدون encoding عشان يطلع نظيف بالعربي
-        const url = `${window.location.origin}${window.location.pathname.replace(/admin\/.*/, '')}form.html?f=${f.slug}`;
-        // للنسخ والفتح في الكود نستخدم نفس الرابط بدون تشفير
-        const urlEncoded = url.replace(/'/g, "\\'");
+        // الرابط النظيف: domain.com/slug (بدون form.html?f=)
+        const basePath = window.location.pathname.replace(/admin\/.*/, '');
+        const url = `${window.location.origin}${basePath}${f.slug}`;
         
         return `
         <div class="form-card">

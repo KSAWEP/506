@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="theme-color" content="#0a2647">
+<title>تسجيل اهتمام | العواد للتكييف</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+.fpage{
+    min-height:100vh;
+    background:linear-gradient(135deg,#0a2647 0%,#061a36 100%);
+    padding:40px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+.fpage::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse at top right,rgba(91,192,235,0.15),transparent 50%);
+}
+.fcard{
+    background:#0a2647;
+    border-radius:24px;
+    padding:30px;
+    max-width:520px;
+    width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+    position:relative;
+    z-index:2;
+    border:1px solid rgba(91,192,235,0.2);
+}
+.flogo{
+    text-align:center;
+    margin-bottom:24px;
+    padding:8px 0;
+}
+.flogo img{
+    height:64px;
+    margin:0 auto;
+}
+.fcard-inner{
+    background:#fff;
+    border-radius:16px;
+    padding:32px 28px;
+}
+.fhead{text-align:center;margin-bottom:24px}
+.fhead h1{
+    font-size:22px;
+    font-weight:700;
+    color:#0a2647;
+    margin-bottom:6px;
+}
+.fhead p{
+    font-size:13px;
+    color:#5c6878;
+}
+.fpage .ctform{
+    padding:0;
+    box-shadow:none;
+    border:none;
+    background:transparent;
+}
+.fnotfound{text-align:center;padding:30px}
+.fnotfound i{font-size:50px;color:#ef4444;margin-bottom:14px}
+.fnotfound h2{color:#0a2647;font-size:18px;margin-bottom:8px}
+.fnotfound p{color:#5c6878;font-size:13.5px;margin-bottom:18px;line-height:1.7}
+.fnotfound a{color:#5BC0EB;font-weight:600}
+.floading{text-align:center;padding:40px}
+.floading .spin{
+    width:40px;height:40px;
+    border:3px solid rgba(91,192,235,0.2);
+    border-top-color:#5BC0EB;
+    border-radius:50%;
+    animation:spin 0.8s linear infinite;
+    margin:0 auto 14px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.floading p{color:#5c6878;font-size:13px}
+
+@media(max-width:480px){
+    .fcard{padding:20px;border-radius:20px}
+    .fcard-inner{padding:24px 20px;border-radius:14px}
+    .flogo img{height:54px}
+    .fhead h1{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<div class="fpage">
+<div class="fcard">
+
+<div class="flogo">
+<img src="/assets/logo.svg" alt="العواد للتكييف">
+</div>
+
+<div class="fcard-inner">
+<div id="formContent">
+<div class="floading">
+<div class="spin"></div>
+<p>جاري التحميل...</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+const DEFAULT_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwyfoyIydRp6-ZKrhBABmJqmIg_LaFfffBhwvVt9dttP35YzOfRFqJMLNY5_bRKqRRM/exec';
+
+document.addEventListener('DOMContentLoaded', function(){
+    // استخراج الـ slug من المسار
+    let path = window.location.pathname;
+    // إزالة الـ base path إذا كان GitHub Pages تحت اسم repo
+    const pathParts = path.split('/').filter(p => p.length > 0);
+    let slug = pathParts[pathParts.length - 1] || '';
+    
+    // فك التشفير لو كان مشفر
+    try { slug = decodeURIComponent(slug); } catch(e) {}
+    
+    // إزالة أي .html
+    slug = slug.replace(/\.html$/i, '');
+    
+    if(!slug){
+        showNotFound('الرابط غير صحيح', 'لم يتم تحديد نموذج');
+        return;
+    }
+    
+    // قراءة النماذج من localStorage
+    let forms = [];
+    try {
+        forms = JSON.parse(localStorage.getItem('alawad_forms') || '[]');
+    } catch(e){}
+    
+    const form = forms.find(f => f.slug === slug);
+    
+    if(!form){
+        showNotFound('النموذج غير موجود', `لم نجد نموذج باسم "${escapeHtml(slug)}"<br>الرابط الذي تستخدمه غير صحيح أو تم حذف النموذج`);
+        return;
+    }
+    
+    // زيادة عداد المشاهدات
+    form.views = (form.views || 0) + 1;
+    try {
+        localStorage.setItem('alawad_forms', JSON.stringify(forms));
+    } catch(e){}
+    
+    renderForm(form);
+});
+
+function renderForm(form){
+    const fields = (form.fields && form.fields.length) ? form.fields : [
+        {id: 'name', label: 'الإسم', type: 'text', required: true},
+        {id: 'phone', label: 'رقم الجوال', type: 'number', required: true}
+    ];
+    
+    const fieldsHtml = fields.map(field => {
+        const required = field.required ? 'required' : '';
+        const reqStar = field.required ? ' *' : '';
+        const optTxt = !field.required ? ' <span class="opt">(اختياري)</span>' : '';
+        
+        let input = '';
+        if(field.type === 'select'){
+            input = `<select name="${escapeHtml(field.label)}" ${required} class="fsl">
+                <option value="">اختر ${escapeHtml(field.label)}</option>
+                ${(field.options || []).filter(o => o && o.trim()).map(o => 
+                    `<option>${escapeHtml(o)}</option>`
+                ).join('')}
+            </select>`;
+        } else if(field.type === 'textarea'){
+            input = `<textarea name="${escapeHtml(field.label)}" ${required} class="fta" placeholder="${escapeHtml(field.label)}..."></textarea>`;
+        } else {
+            const inputType = field.type === 'number' ? 'tel' : field.type;
+            const placeholder = {
+                text: 'اكتب...',
+                tel: '05xxxxxxxx',
+                number: '05xxxxxxxx',
+                email: 'example@email.com'
+            }[field.type] || '';
+            input = `<input type="${inputType}" name="${escapeHtml(field.label)}" ${required} class="fin" placeholder="${placeholder}">`;
+        }
+        
+        return `<div class="fgr"><label>${escapeHtml(field.label)}${reqStar}${optTxt}</label>${input}</div>`;
+    }).join('');
+    
+    const title = form.slug || 'تسجيل اهتمام';
+    
+    document.getElementById('formContent').innerHTML = `
+        <div class="fhead">
+            <h1>${escapeHtml(title)}</h1>
+            <p>سجّل اهتمامك وسنتواصل معك قريباً</p>
+        </div>
+        
+        <form class="ctform" id="dynForm">
+            ${fieldsHtml}
+            <button type="submit" class="fsub" id="submitBtn"><i class="fa fa-paper-plane"></i> إرسال</button>
+            <div id="formMsg" class="form-msg"></div>
+        </form>
+    `;
+    
+    document.getElementById('dynForm').addEventListener('submit', async function(e){
+        e.preventDefault();
+        await submitForm(form, this);
+    });
+}
+
+async function submitForm(form, formEl){
+    const submitBtn = document.getElementById('submitBtn');
+    const msgDiv = document.getElementById('formMsg');
+    const formData = new FormData(formEl);
+    
+    const fieldData = {};
+    for(let [key, value] of formData.entries()){
+        fieldData[key] = value;
+    }
+    
+    const data = {
+        date: new Date().toLocaleString('ar-SA'),
+        formSlug: form.slug,
+        formProject: form.slug || '',
+        status: 'new',
+        fields: fieldData,
+        name: fieldData['الإسم'] || fieldData['الاسم'] || Object.values(fieldData)[0] || '',
+        phone: fieldData['رقم الجوال'] || fieldData['الجوال'] || fieldData['الهاتف'] || '',
+        service: fieldData['نوع الخدمة'] || fieldData['الخدمة'] || ''
+    };
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> جاري الإرسال...';
+    msgDiv.className = 'form-msg';
+    
+    try {
+        const requests = JSON.parse(localStorage.getItem('alawad_requests') || '[]');
+        requests.push(data);
+        localStorage.setItem('alawad_requests', JSON.stringify(requests));
+    } catch(e){}
+    
+    let targetSheetUrl = DEFAULT_SHEETS_URL;
+    if(form.sheetUrl && form.sheetUrl.startsWith('https://script.google.com')){
+        targetSheetUrl = form.sheetUrl;
+    }
+    
+    try {
+        await fetch(targetSheetUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+        msgDiv.className = 'form-msg success';
+        msgDiv.innerHTML = '<i class="fa fa-check-circle"></i> تم استلام طلبك بنجاح! سنتواصل معك قريباً';
+        formEl.reset();
+    } catch(err) {
+        msgDiv.className = 'form-msg error';
+        msgDiv.innerHTML = '<i class="fa fa-exclamation-circle"></i> حدث خطأ. حاول مرة أخرى';
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa fa-paper-plane"></i> إرسال';
+    }
+}
+
+function showNotFound(title, msg){
+    document.getElementById('formContent').innerHTML = `
+        <div class="fnotfound">
+            <i class="fa fa-exclamation-triangle"></i>
+            <h2>${title}</h2>
+            <p>${msg}</p>
+            <a href="/"><i class="fa fa-arrow-left"></i> العودة للموقع</a>
+        </div>
+    `;
+}
+
+function escapeHtml(text){
+    if(text === null || text === undefined) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+</script>
+
+</body>
+</html>
