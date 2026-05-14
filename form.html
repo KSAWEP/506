@@ -1,278 +1,321 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="theme-color" content="#0a2647">
-<title>تسجيل اهتمام | العواد للتكييف</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>العواد للتكييف - تسجيل اهتمام</title>
 <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 <style>
-.fpage{
-    min-height:100vh;
-    background:linear-gradient(135deg,var(--navy) 0%,#061a36 100%);
-    padding:40px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
+:root{
+    --navy:#0a2647;--navy-light:#143a6b;--navy-dark:#061a36;--navy-darker:#041326;
+    --sky:#5BC0EB;--sky-light:#7DD3F0;--sky-dark:#3da8d4;
+    --bg:#f4f6f9;--text:#1a2332;--muted:#5c6878;--border:#e5eaf0;--success:#10b981;
 }
-.fpage::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:radial-gradient(ellipse at top right,rgba(91,192,235,0.15),transparent 50%);
-}
-/* الإطار الخارجي - كحلي */
-.fcard{
-    background:var(--navy);
-    border-radius:24px;
-    padding:30px;
-    max-width:520px;
-    width:100%;
-    box-shadow:0 20px 60px rgba(0,0,0,0.4);
-    position:relative;
-    z-index:2;
-    border:1px solid rgba(91,192,235,0.2);
-}
-/* الشعار خارج الكرت الأبيض - على الكحلي */
-.flogo{
-    text-align:center;
-    margin-bottom:24px;
-    padding:8px 0;
-}
-.flogo img{
-    height:64px;
-    margin:0 auto;
-    /* عشان الشعار الأبيض يبين */
-}
-/* الكرت الأبيض الداخلي */
-.fcard-inner{
-    background:#fff;
-    border-radius:16px;
-    padding:32px 28px;
-}
-.fhead{text-align:center;margin-bottom:24px}
-.fhead h1{
-    font-size:22px;
-    font-weight:700;
-    color:var(--navy);
-    margin-bottom:6px;
-}
-.fhead p{
-    font-size:13px;
-    color:var(--txt-mute);
-}
-.fpage .ctform{
-    padding:0;
-    box-shadow:none;
-    border:none;
-    background:transparent;
-}
-.fnotfound{text-align:center;padding:30px}
-.fnotfound i{font-size:50px;color:var(--red,#ef4444);margin-bottom:14px}
-.fnotfound h2{color:var(--navy);font-size:18px;margin-bottom:8px}
-.fnotfound p{color:var(--txt-mute);font-size:13.5px;margin-bottom:18px}
-.fnotfound a{color:var(--sky);font-weight:600}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Readex Pro',sans-serif;min-height:100vh;background:var(--navy-dark);overflow-x:hidden;}
+.material-symbols-rounded{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;}
 
-@media(max-width:480px){
-    .fcard{padding:20px;border-radius:20px}
-    .fcard-inner{padding:24px 20px;border-radius:14px}
-    .flogo img{height:54px}
-    .fhead h1{font-size:20px}
+.page-bg{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:20px 20px 64px;position:relative;
+    background:linear-gradient(165deg,var(--navy-darker) 0%,var(--navy-dark) 25%,var(--navy) 55%,var(--navy-light) 100%);
+}
+.page-bg::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse at 25% 35%,rgba(91,192,235,.08) 0%,transparent 55%),radial-gradient(ellipse at 75% 65%,rgba(255,255,255,.025) 0%,transparent 50%);
+    pointer-events:none;
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.au{animation:fadeUp .6s ease-out forwards}
+.as{animation:scaleIn .45s ease-out forwards}
+.d1{animation-delay:.06s;opacity:0}.d2{animation-delay:.14s;opacity:0}
+.d3{animation-delay:.22s;opacity:0}.d4{animation-delay:.3s;opacity:0}.d5{animation-delay:.38s;opacity:0}
+
+/* الكرت الخارجي - كحلي */
+.outer{
+    background:var(--navy);border-radius:24px;padding:24px;
+    max-width:520px;width:100%;position:relative;z-index:1;
+    box-shadow:0 22px 60px rgba(0,0,0,.4);
+    border:1px solid rgba(91,192,235,.2);
+}
+.logo-wrap{text-align:center;margin-bottom:20px;padding:8px 0;}
+.logo-wrap img{height:60px;object-fit:contain;}
+.slogan{text-align:center;font-size:.78rem;color:var(--sky-light);font-weight:600;letter-spacing:3px;margin-bottom:18px;text-transform:uppercase;opacity:.7;}
+
+/* الكرت الداخلي - أبيض */
+.card{
+    background:#fff;border-radius:16px;
+    padding:34px 28px;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+.form-title{font-size:1.4rem;font-weight:700;color:var(--navy);text-align:center;margin-bottom:5px;}
+.form-sub{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:24px;}
+
+.project-badge{
+    display:flex;align-items:center;gap:7px;justify-content:center;
+    background:linear-gradient(135deg,var(--navy-dark),var(--navy));
+    color:#fff;padding:8px 20px;border-radius:50px;font-size:.88rem;font-weight:700;
+    width:fit-content;margin:0 auto 10px;box-shadow:0 3px 12px rgba(10,38,71,.3);
+}
+.project-badge .material-symbols-rounded{font-size:17px;color:var(--sky);}
+.villa-badge{
+    display:flex;align-items:center;gap:5px;justify-content:center;
+    background:rgba(91,192,235,.12);color:var(--sky-dark);
+    padding:5px 16px;border-radius:50px;font-size:.82rem;font-weight:600;
+    width:fit-content;margin:0 auto 22px;
+}
+.villa-badge .material-symbols-rounded{font-size:15px;}
+
+.fg{margin-bottom:15px;}
+.fg label{display:block;font-weight:600;font-size:.86rem;color:var(--text);margin-bottom:6px;}
+.fg label .req{color:var(--success);margin-right:2px;}
+.fg input,.fg textarea,.fg select{
+    width:100%;padding:12px 15px;border:2px solid var(--border);border-radius:10px;
+    font-family:inherit;font-size:.93rem;transition:all .3s;background:var(--bg);color:var(--text);
+}
+.fg input:focus,.fg textarea:focus,.fg select:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(91,192,235,.15);background:#fff;}
+.fg input::placeholder,.fg textarea::placeholder{color:#b5bbc4;}
+
+.btn-submit{
+    display:flex;align-items:center;justify-content:center;gap:7px;
+    width:100%;padding:14px;border:none;border-radius:12px;
+    font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all .3s;
+    background:var(--navy);color:#fff;
+    box-shadow:0 4px 16px rgba(10,38,71,.25);
+    margin-top:6px;
+}
+.btn-submit:hover{background:var(--navy-light);transform:translateY(-2px);box-shadow:0 7px 24px rgba(10,38,71,.35);}
+.btn-submit:disabled{opacity:.7;cursor:not-allowed;transform:none!important;}
+.btn-submit .material-symbols-rounded{font-size:20px;}
+.spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;}
+
+.success{display:none;text-align:center;padding:22px 10px;}
+.success .circle{width:68px;height:68px;background:linear-gradient(135deg,var(--success),#34d399);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 7px 24px rgba(16,185,129,.26);}
+.success .circle .material-symbols-rounded{font-size:36px;color:#fff;}
+.success h2{font-size:1.3rem;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.success p{color:var(--muted);font-size:.92rem;line-height:1.6;}
+
+/* الصفحات */
+.loading-page,.error-page{display:none;text-align:center;padding:40px 10px;}
+.loading-page.show,.error-page.show{display:block;}
+.loading-page .spin-big{width:48px;height:48px;border:4px solid rgba(91,192,235,.2);border-top-color:var(--sky);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
+.loading-page p{color:var(--muted);font-size:.92rem;}
+.error-page .material-symbols-rounded{font-size:60px;color:var(--success);opacity:.5;margin-bottom:12px;}
+.error-page h2{font-size:1.2rem;color:var(--navy);margin-bottom:8px;}
+.error-page p{color:var(--muted);font-size:.9rem;}
+
+@media(max-width:520px){
+    .outer{padding:18px;border-radius:20px;}
+    .card{padding:26px 22px;border-radius:14px;}
+    .logo-wrap img{height:52px;}
+    .form-title{font-size:1.2rem;}
 }
 </style>
 </head>
 <body>
 
-<div class="fpage">
-<div class="fcard">
+<div class="page-bg">
+<div class="outer au">
 
-<div class="flogo">
-<img src="assets/logo.svg" alt="العواد للتكييف">
-</div>
+<div class="logo-wrap"><img src="assets/logo.svg" alt="العواد للتكييف"></div>
+<div class="slogan">Alawad Air Conditioning</div>
 
-<div class="fcard-inner">
-<div id="formContent">
-<div class="fhead">
-<h1>تسجيل اهتمام</h1>
-<p>جاري التحميل...</p>
-</div>
-</div>
+<div class="card">
+
+<!-- Loading -->
+<div id="loadingPage" class="loading-page show">
+    <div class="spin-big"></div>
+    <p>جاري التحميل...</p>
 </div>
 
+<!-- Error -->
+<div id="errorPage" class="error-page">
+    <span class="material-symbols-rounded" style="color:var(--sky);">error</span>
+    <h2>الرابط غير صحيح</h2>
+    <p>الرابط الذي تستخدمه غير صحيح أو تم حذف النموذج</p>
+</div>
+
+<!-- Form -->
+<div id="formCard" style="display:none;">
+    <div id="projectBadge" class="project-badge" style="display:none;">
+        <span class="material-symbols-rounded">apartment</span>
+        <span id="projectBadgeName"></span>
+    </div>
+    <div id="villaBadge" class="villa-badge" style="display:none;">
+        <span class="material-symbols-rounded">home</span>
+        <span id="villaBadgeName"></span>
+    </div>
+
+    <h1 class="form-title">تسجيل اهتمام</h1>
+    <p class="form-sub">سجّل اهتمامك وسنتواصل معك قريباً</p>
+
+    <form id="interestForm" onsubmit="submitInterest(event)">
+        <div class="fg">
+            <label>الإسم <span class="req">*</span></label>
+            <input type="text" id="clientName" required placeholder="اكتب اسمك الكامل">
+        </div>
+        <div class="fg">
+            <label>رقم الجوال <span class="req">*</span></label>
+            <input type="tel" id="clientPhone" required placeholder="05xxxxxxxx" pattern="[0-9+]+">
+        </div>
+        <div class="fg">
+            <label>نوع الخدمة <span class="req">*</span></label>
+            <select id="clientService" required>
+                <option value="">اختر نوع الخدمة</option>
+                <option>صيانة تكييف</option>
+                <option>تركيب تكييف</option>
+                <option>طلب شراء تكييف</option>
+            </select>
+        </div>
+        <button type="submit" id="submitBtn" class="btn-submit">
+            <span class="material-symbols-rounded">check_circle</span>
+            تسجيل الاهتمام
+        </button>
+    </form>
+
+    <div id="successMsg" class="success">
+        <div class="circle"><span class="material-symbols-rounded">check</span></div>
+        <h2>تم استلام طلبك بنجاح!</h2>
+        <p>سنتواصل معك قريباً عبر رقم الجوال<br>شكراً لاهتمامك بخدمات العواد للتكييف</p>
+    </div>
+</div>
+
+</div>
 </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script>
-const DEFAULT_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwyfoyIydRp6-ZKrhBABmJqmIg_LaFfffBhwvVt9dttP35YzOfRFqJMLNY5_bRKqRRM/exec';
+const firebaseConfig = {
+    apiKey: "AIzaSyDfkNmzf4fAqAzTG2-wVruvnMiKwQ8icLM",
+    authDomain: "mutamimon-dc2d7.firebaseapp.com",
+    databaseURL: "https://mutamimon-dc2d7-default-rtdb.firebaseio.com",
+    projectId: "mutamimon-dc2d7",
+    storageBucket: "mutamimon-dc2d7.firebasestorage.app",
+    messagingSenderId: "1083645227111",
+    appId: "1:1083645227111:web:4c4a9c0d47ed536a46e4c2"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const FORMS_PATH = 'alawad_forms';
+const SUBS_PATH = 'alawad_submissions';
+let currentForm = null;
 
-document.addEventListener('DOMContentLoaded', function(){
+async function init() {
+    // استخراج الـ slug من URL
     const params = new URLSearchParams(window.location.search);
-    const slug = params.get('f');
+    let slug = params.get('p');
+    if (!slug) {
+        // من path
+        let path = window.location.pathname.replace(/^\//,'').replace(/\.html$/,'');
+        // إزالة الـ base path (مثل /506/)
+        const parts = path.split('/').filter(p => p && p !== 'form' && p !== 'index');
+        if (parts.length > 0) slug = decodeURIComponent(parts[parts.length - 1]);
+    }
     
-    if(!slug){
-        showNotFound('الرابط غير صحيح', 'لم يتم تحديد نموذج');
+    if (!slug) {
+        showError();
         return;
     }
     
-    // قراءة النماذج
-    let forms = [];
     try {
-        forms = JSON.parse(localStorage.getItem('alawad_forms') || '[]');
-    } catch(e){}
-    
-    const form = forms.find(f => f.slug === slug);
-    
-    if(!form){
-        showNotFound('النموذج غير موجود', 'الرابط الذي تستخدمه غير صحيح أو تم حذفه');
-        return;
-    }
-    
-    // زيادة عداد المشاهدات
-    form.views = (form.views || 0) + 1;
-    try {
-        localStorage.setItem('alawad_forms', JSON.stringify(forms));
-    } catch(e){}
-    
-    renderForm(form);
-});
-
-function renderForm(form){
-    const fields = (form.fields && form.fields.length) ? form.fields : [
-        {id: 'name', label: 'الإسم', type: 'text', required: true},
-        {id: 'phone', label: 'رقم الجوال', type: 'number', required: true}
-    ];
-    
-    const fieldsHtml = fields.map(field => {
-        const required = field.required ? 'required' : '';
-        const reqStar = field.required ? ' *' : '';
-        const optTxt = !field.required ? ' <span class="opt">(اختياري)</span>' : '';
+        const snap = await db.ref(FORMS_PATH).orderByChild('slug').equalTo(slug).once('value');
+        const data = snap.val();
         
-        let input = '';
-        if(field.type === 'select'){
-            input = `<select name="${escapeHtml(field.label)}" ${required} class="fsl">
-                <option value="">اختر ${escapeHtml(field.label)}</option>
-                ${(field.options || []).filter(o => o && o.trim()).map(o => 
-                    `<option>${escapeHtml(o)}</option>`
-                ).join('')}
-            </select>`;
-        } else if(field.type === 'textarea'){
-            input = `<textarea name="${escapeHtml(field.label)}" ${required} class="fta" placeholder="${escapeHtml(field.label)}..."></textarea>`;
-        } else {
-            const inputType = field.type === 'number' ? 'tel' : field.type;
-            const placeholder = {
-                text: 'اكتب...',
-                tel: '05xxxxxxxx',
-                number: '05xxxxxxxx',
-                email: 'example@email.com'
-            }[field.type] || '';
-            input = `<input type="${inputType}" name="${escapeHtml(field.label)}" ${required} class="fin" placeholder="${placeholder}">`;
+        if (!data) {
+            showError();
+            return;
         }
         
-        return `<div class="fgr"><label>${escapeHtml(field.label)}${reqStar}${optTxt}</label>${input}</div>`;
-    }).join('');
-    
-    const title = form.slug || 'تسجيل اهتمام';
-    
-    document.getElementById('formContent').innerHTML = `
-        <div class="fhead">
-            <h1>${escapeHtml(title)}</h1>
-            <p>سجّل اهتمامك وسنتواصل معك قريباً</p>
-        </div>
+        const formId = Object.keys(data)[0];
+        currentForm = { id: formId, ...data[formId] };
         
-        <form class="ctform" id="dynForm">
-            ${fieldsHtml}
-            <button type="submit" class="fsub" id="submitBtn"><i class="fa fa-paper-plane"></i> إرسال</button>
-            <div id="formMsg" class="form-msg"></div>
-        </form>
-    `;
-    
-    document.getElementById('dynForm').addEventListener('submit', async function(e){
-        e.preventDefault();
-        await submitForm(form, this);
-    });
-}
-
-async function submitForm(form, formEl){
-    const submitBtn = document.getElementById('submitBtn');
-    const msgDiv = document.getElementById('formMsg');
-    const formData = new FormData(formEl);
-    
-    // جمع كل البيانات
-    const fieldData = {};
-    for(let [key, value] of formData.entries()){
-        fieldData[key] = value;
-    }
-    
-    // البيانات للإرسال
-    const data = {
-        date: new Date().toLocaleString('ar-SA'),
-        formSlug: form.slug,
-        formProject: form.slug || '',
-        status: 'new',
-        fields: fieldData,
-        // مفاتيح موحدة للتوافق
-        name: fieldData['الإسم'] || fieldData['الاسم'] || Object.values(fieldData)[0] || '',
-        phone: fieldData['رقم الجوال'] || fieldData['الجوال'] || fieldData['الهاتف'] || '',
-        service: fieldData['نوع الخدمة'] || fieldData['الخدمة'] || ''
-    };
-    
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> جاري الإرسال...';
-    msgDiv.className = 'form-msg';
-    
-    // حفظ في localStorage
-    try {
-        const requests = JSON.parse(localStorage.getItem('alawad_requests') || '[]');
-        requests.push(data);
-        localStorage.setItem('alawad_requests', JSON.stringify(requests));
-    } catch(e){}
-    
-    // تحديد الشيت
-    let targetSheetUrl = DEFAULT_SHEETS_URL;
-    if(form.sheetUrl && form.sheetUrl.startsWith('https://script.google.com')){
-        targetSheetUrl = form.sheetUrl;
-    }
-    
-    try {
-        await fetch(targetSheetUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        });
-        msgDiv.className = 'form-msg success';
-        msgDiv.innerHTML = '<i class="fa fa-check-circle"></i> تم استلام طلبك بنجاح! سنتواصل معك قريباً';
-        formEl.reset();
+        // إخفاء التحميل وعرض النموذج
+        document.getElementById('loadingPage').classList.remove('show');
+        document.getElementById('formCard').style.display = 'block';
+        
+        // عرض المعلومات
+        if (currentForm.projectName) {
+            document.getElementById('projectBadge').style.display = 'flex';
+            document.getElementById('projectBadgeName').textContent = currentForm.projectName;
+        }
+        if (currentForm.villaNumber) {
+            document.getElementById('villaBadge').style.display = 'flex';
+            document.getElementById('villaBadgeName').textContent = 'وحدة: ' + currentForm.villaNumber;
+        }
+        if (currentForm.formTitle) {
+            document.querySelector('.form-title').textContent = currentForm.formTitle;
+        }
+        
+        // زيادة عداد المشاهدات
+        db.ref(FORMS_PATH + '/' + formId + '/views').transaction(v => (v || 0) + 1);
     } catch(err) {
-        msgDiv.className = 'form-msg error';
-        msgDiv.innerHTML = '<i class="fa fa-exclamation-circle"></i> حدث خطأ. حاول مرة أخرى';
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa fa-paper-plane"></i> إرسال';
+        console.error(err);
+        showError();
     }
 }
 
-function showNotFound(title, msg){
-    document.getElementById('formContent').innerHTML = `
-        <div class="fnotfound">
-            <i class="fa fa-exclamation-triangle"></i>
-            <h2>${title}</h2>
-            <p>${msg}</p>
-            <a href="index.html"><i class="fa fa-arrow-left"></i> العودة للموقع</a>
-        </div>
-    `;
+function showError() {
+    document.getElementById('loadingPage').classList.remove('show');
+    document.getElementById('errorPage').classList.add('show');
 }
 
-function escapeHtml(text){
-    if(text === null || text === undefined) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+// رابط Google Apps Script - يحول البيانات إلى Google Sheet المحدد في النموذج
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxmQCle3VrkMFIgpPBVF-mNL4ZA9pHwzNNu713WVJ29vw1lL1WsirLesymBGARusepo_g/exec";
+
+async function submitInterest(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>جاري الإرسال...';
+    
+    try {
+        const subData = {
+            formId: currentForm.id,
+            formSlug: currentForm.slug,
+            projectName: currentForm.projectName || '',
+            villaNumber: currentForm.villaNumber || '',
+            contactPerson: currentForm.contactPerson || '',
+            name: document.getElementById('clientName').value,
+            phone: document.getElementById('clientPhone').value,
+            service: document.getElementById('clientService').value,
+            status: 'جديد',
+            date: new Date().toISOString()
+        };
+        
+        // حفظ في Firebase
+        await db.ref(SUBS_PATH).push(subData);
+        
+        // إرسال إلى Google Sheet إذا كان مربوط
+        if (currentForm.sheetUrl) {
+            const sheetMatch = currentForm.sheetUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            if (sheetMatch) {
+                fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {'Content-Type': 'text/plain'},
+                    body: JSON.stringify({sheetId: sheetMatch[1], ...subData})
+                }).catch(() => {});
+            }
+        }
+        
+        // عرض رسالة النجاح
+        document.getElementById('interestForm').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+    } catch(err) {
+        console.error(err);
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-rounded">check_circle</span>تسجيل الاهتمام';
+        alert('حدث خطأ، حاول مرة أخرى');
+    }
 }
+
+init();
 </script>
-
 </body>
 </html>
