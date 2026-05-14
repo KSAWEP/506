@@ -65,17 +65,14 @@
 
 <form class="ctform" id="contactForm">
 <h3>طلب الصيانة / استفسار</h3>
-<p>أرسل لنا تفاصيل مشروعك وسيتواصل معك فريقنا خلال 24 ساعة</p>
-<div class="ftrow">
+<p>أرسل لنا تفاصيل طلبك وسيتواصل معك فريقنا خلال 24 ساعة</p>
+
 <div class="fgr"><label>الإسم *</label><input type="text" name="name" required class="fin" placeholder="اسمك الكامل"></div>
+
 <div class="fgr"><label>رقم الجوال *</label><input type="tel" name="phone" required class="fin" placeholder="05xxxxxxxx"></div>
-</div>
-<div class="ftrow">
-<div class="fgr"><label>البريد الإلكتروني <span class="opt">(اختياري)</span></label><input type="email" name="email" class="fin" placeholder="example@email.com"></div>
-<div class="fgr"><label>المنطقة</label><select name="region" class="fsl"><option>اختر المنطقة</option><option>الرياض</option><option>جدة</option><option>الدمام</option><option>أخرى</option></select></div>
-</div>
-<div class="fgr"><label>نوع الخدمة</label><select name="service" class="fsl"><option>اختر نوع الخدمة</option><option>تركيب جديد</option><option>صيانة دورية</option><option>إصلاح / طوارئ</option><option>قطع غيار</option><option>استشارة</option></select></div>
-<div class="fgr"><label>الإستفسار <span class="opt">(اختياري)</span></label><textarea name="message" class="fta" placeholder="اكتب تفاصيل المشروع أو استفسارك..."></textarea></div>
+
+<div class="fgr"><label>نوع الخدمة *</label><select name="service" required class="fsl"><option value="">اختر نوع الخدمة</option><option>صيانة تكييف</option><option>تركيب تكييف</option><option>طلب شراء تكييف</option></select></div>
+
 <button type="submit" class="fsub" id="submitBtn"><i class="fa fa-paper-plane"></i> ارسال الطلب</button>
 <div id="formMsg" class="form-msg"></div>
 </form>

@@ -106,11 +106,97 @@
 <textarea id="formNotes" placeholder="ملاحظات للفريق الداخلي..."></textarea>
 </div>
 
+<!-- ============ بنّاء الحقول المخصصة ============ -->
+<div class="fm-section">
+<div class="fm-section-head">
+<h3><i class="fa fa-list"></i> حقول النموذج</h3>
+<p>أضف الحقول التي تريد جمعها من العميل</p>
+</div>
+
+<div id="customFieldsList" class="custom-fields"></div>
+
+<button type="button" class="btn-add-field" onclick="addCustomField()">
+<i class="fa fa-plus"></i> إضافة حقل جديد
+</button>
+</div>
+
+<div class="fm-group">
+<label><i class="fa fa-table"></i> رابط Google Sheet <span class="opt">(اختياري)</span></label>
+<input type="url" id="sheetUrl" placeholder="https://docs.google.com/spreadsheets/d/.../edit">
+<small class="fm-hint">
+الصق رابط الشيت من Google Sheets مباشرة. <a href="#" onclick="showSheetGuide(event)" style="color:var(--sky);text-decoration:underline">إعداد سريع (مرة واحدة)</a>
+</small>
+</div>
+
 <div class="modal-foot">
 <button type="submit" class="btn-save"><i class="fa fa-check"></i> حفظ النموذج</button>
 <button type="button" class="btn-cancel" onclick="closeFormModal()">إلغاء</button>
 </div>
 </form>
+</div>
+</div>
+
+<!-- مودال شرح كيفية الحصول على رابط Apps Script -->
+<div class="modal" id="sheetGuideModal">
+<div class="modal-bg" onclick="closeSheetGuide()"></div>
+<div class="modal-content">
+<div class="modal-head">
+<h2><i class="fa fa-info-circle"></i> إعداد سريع للشيت (مرة واحدة)</h2>
+<button class="modal-close" onclick="closeSheetGuide()">✕</button>
+</div>
+<div class="modal-body guide-body">
+
+<div class="guide-intro">
+<i class="fa fa-lightbulb"></i>
+<p>لازم تسوي هذا الإعداد <strong>مرة واحدة فقط</strong> لكل شيت جديد، عشان البيانات تتحفظ فيه تلقائياً.</p>
+</div>
+
+<ol class="guide-steps">
+<li>
+<strong>1️⃣ افتح شيتك في Google Sheets</strong>
+<p>والصق رؤوس الأعمدة هذي في الصف الأول:</p>
+<div class="guide-table">
+<code>التاريخ | الإسم | الجوال | نوع الخدمة</code>
+</div>
+</li>
+
+<li>
+<strong>2️⃣ افتح Apps Script</strong>
+<p>من القائمة العلوية: <code>Extensions ← Apps Script</code></p>
+</li>
+
+<li>
+<strong>3️⃣ امسح الكود الموجود والصق هذا:</strong>
+<pre class="guide-code">function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  const data = JSON.parse(e.postData.contents);
+  sheet.appendRow([data.date, data.name, data.phone, data.service]);
+  return ContentService.createTextOutput('ok');
+}</pre>
+<button class="btn-copy-code" onclick="copyScriptCode(this)"><i class="fa fa-copy"></i> نسخ الكود</button>
+</li>
+
+<li>
+<strong>4️⃣ انشر الـ Script (Deploy)</strong>
+<ul class="guide-sublist">
+<li>اضغط <code>Deploy</code> ← <code>New deployment</code></li>
+<li>اضغط أيقونة الترس ⚙️ → اختر <strong>Web app</strong></li>
+<li>Execute as: <strong>Me</strong></li>
+<li>Who has access: <strong>Anyone</strong> ⚠️ مهم!</li>
+<li>اضغط <strong>Deploy</strong> ووافق على الصلاحيات</li>
+</ul>
+</li>
+
+<li>
+<strong>5️⃣ خلاص!</strong>
+<p>الحين تقدر تستخدم رابط الشيت العادي في النموذج، والبيانات راح تتحفظ تلقائياً ✅</p>
+</li>
+</ol>
+
+<div class="modal-foot">
+<button type="button" class="btn-save" onclick="closeSheetGuide()"><i class="fa fa-check"></i> فهمت</button>
+</div>
+</div>
 </div>
 </div>
 

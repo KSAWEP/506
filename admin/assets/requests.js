@@ -53,8 +53,7 @@ function renderRequests(requests){
                 <div class="rt-name">${escapeHtml(r.name || '-')}</div>
                 <div class="rt-meta">
                     <span><i class="fa fa-phone"></i> <span class="ltr-num">${escapeHtml(r.phone || '-')}</span></span>
-                    ${r.email && r.email !== '-' ? `<span><i class="fa fa-envelope"></i> ${escapeHtml(r.email)}</span>` : ''}
-                    ${r.region ? `<span><i class="fa fa-map-marker-alt"></i> ${escapeHtml(r.region)}</span>` : ''}
+                    ${r.service ? `<span><i class="fa fa-wrench"></i> ${escapeHtml(r.service)}</span>` : ''}
                     <span><i class="fa fa-clock"></i> ${formatDate(r.date)}</span>
                 </div>
             </div>
@@ -77,7 +76,7 @@ function filterRequests(){
     
     const filtered = allRequests.filter(r => {
         if(search){
-            const text = `${r.name || ''} ${r.phone || ''} ${r.email || ''}`.toLowerCase();
+            const text = `${r.name || ''} ${r.phone || ''} ${r.service || ''}`.toLowerCase();
             if(!text.includes(search)) return false;
         }
         if(formFilter && r.formSlug !== formFilter) return false;
@@ -94,14 +93,24 @@ function viewRequest(idx){
     const forms = getForms();
     const form = forms.find(f => f.slug === r.formSlug);
     
+    // عرض كل الحقول المخصصة
+    let fieldsHtml = '';
+    if(r.fields && typeof r.fields === 'object'){
+        for(const [key, value] of Object.entries(r.fields)){
+            if(value){
+                fieldsHtml += `<div class="rd-row"><span class="rd-label">${escapeHtml(key)}</span><span class="rd-value">${escapeHtml(value)}</span></div>`;
+            }
+        }
+    } else {
+        // البيانات القديمة
+        if(r.name) fieldsHtml += `<div class="rd-row"><span class="rd-label">الإسم</span><span class="rd-value">${escapeHtml(r.name)}</span></div>`;
+        if(r.phone) fieldsHtml += `<div class="rd-row"><span class="rd-label">الجوال</span><span class="rd-value ltr-num">${escapeHtml(r.phone)}</span></div>`;
+        if(r.service) fieldsHtml += `<div class="rd-row"><span class="rd-label">نوع الخدمة</span><span class="rd-value">${escapeHtml(r.service)}</span></div>`;
+    }
+    
     document.getElementById('reqDetail').innerHTML = `
-        <div class="rd-row"><span class="rd-label">الإسم</span><span class="rd-value">${escapeHtml(r.name || '-')}</span></div>
-        <div class="rd-row"><span class="rd-label">الجوال</span><span class="rd-value ltr-num">${escapeHtml(r.phone || '-')}</span></div>
-        ${r.email && r.email !== '-' ? `<div class="rd-row"><span class="rd-label">الإيميل</span><span class="rd-value">${escapeHtml(r.email)}</span></div>` : ''}
-        ${r.region ? `<div class="rd-row"><span class="rd-label">المنطقة</span><span class="rd-value">${escapeHtml(r.region)}</span></div>` : ''}
-        ${r.service ? `<div class="rd-row"><span class="rd-label">الخدمة</span><span class="rd-value">${escapeHtml(r.service)}</span></div>` : ''}
+        ${fieldsHtml}
         ${form ? `<div class="rd-row"><span class="rd-label">النموذج</span><span class="rd-value">${escapeHtml(form.projectName)}</span></div>` : ''}
-        ${r.message && r.message !== '-' ? `<div class="rd-row"><span class="rd-label">الإستفسار</span><span class="rd-value">${escapeHtml(r.message)}</span></div>` : ''}
         <div class="rd-row"><span class="rd-label">التاريخ</span><span class="rd-value">${formatDate(r.date)}</span></div>
     `;
     
@@ -138,7 +147,7 @@ function exportCSV(){
     }
     
     const forms = getForms();
-    const headers = ['التاريخ','الإسم','الجوال','الإيميل','المنطقة','الخدمة','النموذج','الإستفسار','الحالة'];
+    const headers = ['التاريخ','الإسم','الجوال','نوع الخدمة','النموذج','الحالة'];
     
     const rows = allRequests.map(r => {
         const form = forms.find(f => f.slug === r.formSlug);
@@ -147,11 +156,8 @@ function exportCSV(){
             r.date || '',
             r.name || '',
             r.phone || '',
-            r.email || '',
-            r.region || '',
             r.service || '',
             form ? form.projectName : '',
-            (r.message || '').replace(/[\n\r,]/g, ' '),
             statusText
         ];
     });

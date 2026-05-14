@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     // ====== إرسال نموذج التواصل إلى Google Sheets ======
-    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwyfoyIydRp6-ZKrhBABmJqmIg_LaFfffBhwvVt9dttP35YzOfRFqJMLNY5_bRKqRRM/exec';
+    const DEFAULT_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwyfoyIydRp6-ZKrhBABmJqmIg_LaFfffBhwvVt9dttP35YzOfRFqJMLNY5_bRKqRRM/exec';
     
     const contactForm = document.getElementById('contactForm');
     if(contactForm){
@@ -71,15 +71,30 @@ document.addEventListener('DOMContentLoaded', function(){
             const urlParams = new URLSearchParams(window.location.search);
             const formSlug = urlParams.get('f') || '';
             
+            // تحديد الشيت المستهدف
+            let targetSheetUrl = DEFAULT_SHEETS_URL;
+            let formProject = '';
+            
+            if(formSlug){
+                try {
+                    const forms = JSON.parse(localStorage.getItem('alawad_forms') || '[]');
+                    const matchedForm = forms.find(f => f.slug === formSlug);
+                    if(matchedForm){
+                        if(matchedForm.sheetUrl){
+                            targetSheetUrl = matchedForm.sheetUrl;
+                        }
+                        formProject = matchedForm.projectName || '';
+                    }
+                } catch(e){}
+            }
+            
             const data = {
                 date: new Date().toLocaleString('ar-SA'),
                 name: formData.get('name'),
                 phone: formData.get('phone'),
-                email: formData.get('email') || '-',
-                region: formData.get('region'),
                 service: formData.get('service'),
-                message: formData.get('message') || '-',
                 formSlug: formSlug,
+                formProject: formProject,
                 status: 'new'
             };
             
@@ -96,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function(){
             } catch(e){}
             
             try {
-                await fetch(SHEETS_URL, {
+                await fetch(targetSheetUrl, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: {'Content-Type': 'application/json'},
